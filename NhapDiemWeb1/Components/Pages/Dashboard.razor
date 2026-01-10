@@ -1,0 +1,77 @@
+﻿@page "/dashboard"
+@rendermode InteractiveServer
+@inject IJSRuntime JS
+
+<div class="dashboard-container">
+    <div class="page-title">
+        <div class="icon-title"><i class="fa-solid fa-layer-group"></i></div>
+        <h4>TRANG TỔNG QUAN</h4>
+        <button class="btn-refresh"><i class="fa-solid fa-rotate"></i> Làm mới</button>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-text"><span class="label">HỌC SINH</span><div class="value">1,245</div><div class="sub text-success">+12 mới</div></div><div class="kpi-icon bg-blue"><i class="fa-solid fa-graduation-cap"></i></div></div>
+        <div class="kpi-card"><div class="kpi-text"><span class="label">GIÁO VIÊN</span><div class="value">86</div><div class="sub">Đang hoạt động</div></div><div class="kpi-icon bg-purple"><i class="fa-solid fa-chalkboard-user"></i></div></div>
+        <div class="kpi-card"><div class="kpi-text"><span class="label">LỚP HỌC</span><div class="value">32</div><div class="sub">K10, K11, K12</div></div><div class="kpi-icon bg-orange"><i class="fa-solid fa-cubes"></i></div></div>
+        <div class="kpi-card"><div class="kpi-text"><span class="label">TIẾN ĐỘ</span><div class="value text-danger">75%</div><div class="sub text-danger">Còn 5 ngày</div></div><div class="kpi-icon bg-red"><i class="fa-solid fa-chart-pie"></i></div></div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-box">
+            <div class="chart-head">
+                <span class="title">Tiến độ HK1</span>
+                <div class="toggle-group">
+                    <span class="@(tabHK1 == 1 ? "active" : "")" @onclick="() => SwitchTabHK1(1)">Giữa kỳ</span>
+                    <span class="@(tabHK1 == 2 ? "active" : "")" @onclick="() => SwitchTabHK1(2)">Cuối kỳ</span>
+                </div>
+            </div>
+            <div class="chart-content"><canvas id="chartHK1"></canvas></div>
+            <div class="chart-footer">Trạng thái: <b class="text-success">Đã khóa sổ</b></div>
+        </div>
+
+        <div class="chart-box">
+            <div class="chart-head">
+                <span class="title">Tiến độ HK2</span>
+                <div class="toggle-group">
+                    <span class="@(tabHK2 == 1 ? "active" : "")" @onclick="() => SwitchTabHK2(1)">Giữa kỳ</span>
+                    <span class="@(tabHK2 == 2 ? "active" : "")" @onclick="() => SwitchTabHK2(2)">Cuối kỳ</span>
+                </div>
+            </div>
+            <div class="chart-content"><canvas id="chartHK2"></canvas></div>
+            <div class="chart-footer">Trạng thái: <b style="color:#ffc107">Đang nhập liệu</b></div>
+        </div>
+
+        <div class="chart-box">
+            <div class="chart-head"><span class="title text-muted">Tổng kết năm</span><span class="badge">Dự kiến</span></div>
+            <div class="chart-content"><canvas id="chartYearEnd"></canvas></div>
+            <div class="chart-footer">Trạng thái: <span class="text-muted">Chưa mở</span></div>
+        </div>
+    </div>
+</div>
+
+@code {
+    int tabHK1 = 1;
+    int tabHK2 = 1;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) await JS.InvokeVoidAsync("AppUtils.initCharts");
+    }
+
+    async Task SwitchTabHK1(int tab)
+    {
+        tabHK1 = tab;
+        // Dữ liệu giả lập khi đổi tab
+        var dataDone = tab == 1 ? new[] { 98, 95, 100 } : new[] { 100, 100, 100 };
+        var dataEmpty = tab == 1 ? new[] { 2, 5, 0 } : new[] { 0, 0, 0 };
+        await JS.InvokeVoidAsync("AppUtils.updateChartData", "chartHK1", dataDone, dataEmpty);
+    }
+
+    async Task SwitchTabHK2(int tab)
+    {
+        tabHK2 = tab;
+        var dataDone = tab == 1 ? new[] { 30, 45, 20 } : new[] { 5, 10, 2 }; 
+        var dataEmpty = tab == 1 ? new[] { 70, 55, 80 } : new[] { 95, 90, 98 };
+        await JS.InvokeVoidAsync("AppUtils.updateChartData", "chartHK2", dataDone, dataEmpty);
+    }
+}

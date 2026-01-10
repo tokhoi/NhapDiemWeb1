@@ -1,0 +1,524 @@
+﻿/* --- LAYOUT CHUNG --- */
+.point-page {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 5rem);
+    padding: 10px;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden; 
+    background-color: #f5f7fa;
+}
+
+/* HEADER & FILTER (Giữ nguyên) */
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    height: 50px;
+}
+
+.icons-title {
+    width: 32px;
+    height: 32px;
+    background: #1b6ec2;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    .icons-title i{
+        font-size:18px;
+    }
+
+.page-title h4 {
+    margin: 0;
+    font-size:18px;
+    font-weight: 700;
+    color: #444;
+}
+.filter-bar {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+}
+
+    .group select {
+        padding: 5px 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        font-size: 13px;
+        min-width: 90px;
+    }
+
+.select-highlight {
+    color: rgb(0, 0, 0);
+    border-color: #b3d7ff;
+}
+
+/* BUTTONS */
+.btn-save {
+    background: #198754;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+    .btn-save:hover {
+        background: #157347;
+    }
+.btn-lock {
+    background: #eda00b;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    margin-left: 12px;
+}
+    .btn-lock:hover {
+        background: #ffbd3d;
+    }
+
+.btn-excel {
+    background: #0091ff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+    .btn-excel:hover {
+        background: #007acc;
+    }
+
+.ms-auto {
+    margin-left: auto;
+}
+
+/* POPUPS */
+.blue-popup {
+    position: absolute;
+    top: 35px;
+    left: -10px;
+    z-index: 2000;
+    background: #0091ff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    width: 260px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    font-size: 12px;
+    line-height: 1.4;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.popup-arrow {
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
+    background: #0091ff;
+    transform: rotate(45deg);
+}
+
+.popup-content {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+}
+
+.popup-close {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    color: white;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    float: right;
+    cursor: pointer;
+}
+
+.pop-error {
+    position: absolute;
+    bottom: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #dc3545;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    animation: bounce 0.2s ease-out;
+}
+
+    .pop-error::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -4px;
+        border: 4px solid transparent;
+        border-top-color: #dc3545;
+    }
+
+/* --- TABLE SYSTEM (Fixed) --- */
+.table-container {
+    flex: 1; 
+    overflow: auto; 
+    background: white;
+    border: 1px solid #ccc;
+    position: relative;
+    border-radius: 4px 4px 0 0; 
+}
+
+.excel-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 100%;
+    width: max-content;
+    table-layout: fixed; /* Quan trọng để cột không bị nhảy lung tung */
+}
+
+    /* Các ô chung */
+    .excel-table th, .excel-table td {
+        border-right: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+        height: 34px; /* Fix cứng chiều cao */
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 13px;
+        vertical-align: middle; /* Căn giữa dọc chuẩn Table */
+    }
+
+    /* HEADER STYLES */
+    .excel-table thead th {
+        background: #005b9f;
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+.th-group {
+    background: #005b9f !important;
+    border-bottom: 1px solid #4da3e2 !important;
+}
+
+.excel-table thead tr:nth-child(2) th {
+    top: 34px;
+    background: #2a92df;
+    z-index: 10;
+}
+
+/* COLUMN WIDTHS */
+.col-stt {
+    width: 40px;
+    min-width: 40px;
+}
+
+.col-view {
+    width: 40px;
+    min-width: 40px;
+}
+
+.col-code {
+    width: 90px;
+    min-width: 90px;
+}
+
+.col-name {
+    width: 220px;
+    min-width: 220px;
+}
+
+.col-score {
+    width: 65px;
+    min-width: 65px;
+}
+
+.col-note {
+    min-width: 150px;
+    width: auto;
+}
+
+/* STICKY LEFT COLUMNS */
+.sticky-col {
+    position: sticky;
+    background: white;
+    z-index: 5;
+    border-right: 1px solid #ddd;
+}
+
+.col-stt.sticky-col {
+    left: 0;
+}
+
+.col-view.sticky-col {
+    left: 40px;
+}
+
+.col-code.sticky-col {
+    left: 80px;
+}
+
+.col-name.sticky-col {
+    left: 170px;
+    border-right: 2px solid #bbb !important;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+/* GÓC CHẾT */
+.z-corner {
+    z-index: 20 !important;
+    background: #005b9f !important;
+    border-right: 1px solid #4da3e2 !important;
+}
+
+.col-name.z-corner {
+    border-right: 2px solid #4da3e2 !important;
+}
+
+/* BODY STYLES */
+.excel-table tbody tr:hover td {
+    background-color: #f0f8ff;
+}
+.excel-table tbody td.sticky-col {
+    background-color: white;
+}
+.excel-table tbody tr:hover td.sticky-col {
+    background-color: #f0f8ff;
+}
+
+/* --- HELPER CLASSES (ĐÃ SỬA LỖI) --- */
+
+.text-center {
+    text-align: center;
+}
+
+.text-start {
+    text-align: left;
+}
+
+.font-name {
+    font-weight: 600;
+    color: #2c3e50;
+    padding-left: 8px !important;
+    text-align: left;
+}
+
+/* INPUTS */
+.td-inp {
+    position: relative;
+    width: 65px;
+}
+
+.inp {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    text-align: center;
+    background: transparent;
+    font-family: 'Consolas', monospace;
+    font-weight: 600;
+    font-size: 13px;
+    display: block; /* Input là block ok, nhưng td cha phải là table-cell */
+}
+
+    .inp:focus {
+        background: #e6f7ff;
+        box-shadow: inset 0 0 0 2px #0091ff;
+    }
+
+    .inp.err {
+        background: #ffe6e6;
+        color: #dc3545;
+    }
+
+/* Readonly Cell */
+.td-readonly {
+    background: #f8f9fa;
+    color: #0091ff;
+    font-weight: 700;
+    text-align: center;
+    /* Không cần div wrapper flex nữa, để td tự xử lý */
+}
+
+/* Footer */
+.footer {
+    background: #f8f9fa;
+    padding: 8px 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.pager button {
+    border: 1px solid #ccc;
+    background: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    .pager button:hover:not(:disabled) {
+        background: #e9ecef;
+    }
+
+    .pager button:disabled {
+        opacity: 0.5;
+    }
+
+@keyframes bounce {
+    from {
+        transform: translate(-50%, 5px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.bg-sum {
+    background-color: #0078d7 !important; 
+    color: white;
+}
+
+.bg-year {
+    background-color: #d9534f !important; 
+    color: white;
+}
+
+.text-muted {
+    color: #888 !important;
+    background-color: #f0f0f0;
+}
+.footer {
+    background: #fff;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0; 
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+.pager {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .pager button {
+        border: 1px solid #dee2e6;
+        background: white;
+        color: #0091ff;
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+
+        .pager button i {
+            font-size: 14px;
+        }
+
+        .pager button:hover:not(:disabled) {
+            background: #0091ff;
+            color: white;
+            border-color: #0091ff;
+        }
+
+        .pager button:disabled {
+            color: #adb5bd;
+            background: #f8f9fa;
+            cursor: not-allowed;
+            border-color: #ebebeb;
+        }
+
+.page-info {
+    font-weight: 600;
+    margin: 0 12px;
+    font-size: 13px;
+    color: #495057;
+    background: #e9ecef;
+    padding: 4px 10px;
+    border-radius: 12px;
+}

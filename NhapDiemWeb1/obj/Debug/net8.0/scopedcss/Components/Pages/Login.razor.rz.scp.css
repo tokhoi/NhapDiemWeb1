@@ -1,0 +1,218 @@
+.login-page[b-b7un0vqytm] {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f2f5;
+}
+
+.login-card[b-b7un0vqytm] {
+    width: 900px;
+    height: 600px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    display: flex;
+    overflow: hidden;
+}
+
+/* LEFT SIDE */
+.brand-side[b-b7un0vqytm] {
+    flex: 1;
+    background-color: #4b8cce;
+    position: relative;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+}
+
+.logo-large[b-b7un0vqytm] {
+    font-size: 80px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.features[b-b7un0vqytm] {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+    font-size: 12px;
+}
+
+    .features i[b-b7un0vqytm] {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+
+/* RIGHT SIDE */
+.form-side[b-b7un0vqytm] {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: white; /* Đảm bảo nền trắng */
+}
+
+.form-header[b-b7un0vqytm] {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.icon-lock[b-b7un0vqytm] {
+    background: #fd7e14;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.form-header h4[b-b7un0vqytm] {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+}
+
+.sub-text[b-b7un0vqytm] {
+    font-size: 12px;
+    color: #666;
+}
+
+.form-body[b-b7un0vqytm] {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-group label[b-b7un0vqytm] {
+    font-size: 11px;
+    font-weight: 700;
+    color: #555;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.input-group[b-b7un0vqytm] {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.input-icon[b-b7un0vqytm] {
+    background: #f8f9fa;
+    padding: 8px 12px;
+    border-right: 1px solid #ddd;
+    color: #666;
+}
+
+.input-group input[b-b7un0vqytm] {
+    border: none;
+    padding: 8px;
+    width: 100%;
+    outline: none;
+}
+
+.form-select[b-b7un0vqytm] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 13px;
+}
+
+.divider[b-b7un0vqytm] {
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 5px;
+}
+
+.captcha-row[b-b7un0vqytm] {
+    display: flex;
+    gap: 10px;
+}
+
+.captcha-input[b-b7un0vqytm] {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.captcha-code[b-b7un0vqytm] {
+    width: 100px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-decoration: line-through;
+    color: #555;
+}
+
+.btn-refresh[b-b7un0vqytm] {
+    background: none;
+    color: #0091ff;
+    font-size: 16px;
+}
+
+.remember-row[b-b7un0vqytm] {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    align-items: center;
+}
+
+.forgot-pass[b-b7un0vqytm] {
+    color: #0091ff;
+}
+
+.btn-submit[b-b7un0vqytm] {
+    background: #0091ff;
+    color: white;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+    .btn-submit:hover[b-b7un0vqytm] {
+        background: #007acc;
+    }
+
+.btn-vneid[b-b7un0vqytm] {
+    background: white;
+    border: 1px solid #ddd;
+    color: #333;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+    .btn-vneid:hover[b-b7un0vqytm] {
+        background: #f8f9fa;
+    }

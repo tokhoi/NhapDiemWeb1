@@ -1,0 +1,380 @@
+﻿@page "/nhap-diem"
+@rendermode InteractiveServer
+@inject IJSRuntime JS
+
+<div class="point-page">
+    @* --- HEADER --- *@
+    <div class="page-title">
+        <div class="icons-title"><i class="fa-solid fa-table-cells"></i></div>
+        <h4> Nhập điểm môn học</h4>
+    </div>
+
+    @* --- THÔNG BÁO TRẠNG THÁI KHÓA --- *@
+    @if (isSystemLocked)
+    {
+        <div class="alert alert-locked" style="background:#fff3cd; color:#856404; border:1px solid #ffeeba; padding:10px; border-radius:6px; margin-bottom:15px; display:flex; align-items:center; gap:10px; font-size:13px;">
+            <i class="fa-solid fa-triangle-exclamation" style="font-size:18px"></i>
+            <div>
+                <b>Hệ thống đã khóa nhập liệu.</b><br />
+                Đợt nhập điểm này đã kết thúc hoặc bị khóa bởi Quản trị viên. Bạn chỉ có quyền xem.
+            </div>
+        </div>
+    }
+    else if (isTeacherLocked)
+    {
+        <div class="alert alert-locked" style="background:#d1e7dd; color:#0f5132; border:1px solid #badbcc; padding:10px; border-radius:6px; margin-bottom:15px; display:flex; align-items:center; gap:10px; font-size:13px;">
+            <i class="fa-solid fa-circle-check" style="font-size:18px"></i>
+            <div>
+                <b>Bạn đã hoàn tất và khóa sổ môn này.</b><br />
+                Dữ liệu an toàn. Vui lòng liên hệ Admin nếu cần mở lại để chỉnh sửa.
+            </div>
+            <button class="btn btn-sm btn-outline-success ms-auto bg-white" @onclick="UnlockGradeSheet" style="border:1px solid #198754; color:#198754; padding:2px 8px; border-radius:4px; cursor:pointer;">Xin mở lại</button>
+        </div>
+    }
+
+    @* --- FILTER --- *@
+    <div class="filter-bar">
+        <div class="group"><label>Khối:</label><select><option>Khối 10</option></select></div>
+        <div class="group"><label>Lớp:</label><select><option>10A1</option></select></div>
+
+        @* --- XỬ LÝ CHỌN MÔN HỌC ĐỘNG --- *@
+        <div class="group">
+            <label>Môn:</label>
+            <select value="@selectedSubjectId" @onchange="OnSubjectChanged" class="select-highlight">
+                @foreach (var sub in listSubjects)
+                {
+                    <option value="@sub.Id">@sub.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="group"><label>Học kỳ:</label><select @bind="hocKy" class="select-highlight" disabled><option value="1">Học kỳ 1</option><option value="2">Học kỳ 2</option></select></div>
+
+        <div class="group ms-3" style="position: relative;">
+            <label style="cursor:pointer; display:flex; align-items:center; gap:5px">
+                <input type="checkbox" @bind="isAutoRound" disabled="@IsReadOnlyMode">
+                <span style="@(IsReadOnlyMode ? "color:#999" : "color:#000")">Tự động làm tròn</span>
+            </label>
+
+            @if (showTutorial)
+            {
+                <div class="blue-popup">
+                    <div class="popup-arrow"></div>
+                    <div class="popup-content">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <div>Khi chọn ô hệ thống tự động làm tròn.<br />VD: <b>8.25</b> &rarr; <b>8.5</b></div>
+                    </div>
+                    <button class="popup-close" @onclick="() => showTutorial = false">Đã hiểu</button>
+                </div>
+            }
+        </div>
+
+        <div class="ms-auto d-flex gap-2">
+            @if (!IsReadOnlyMode)
+            {
+                <button class="btn-save" @onclick="SaveData"><i class="fa-solid fa-floppy-disk"></i> Lưu lại</button>
+            }
+            <button class="btn-lock" @onclick="LockGradeSheet"><i class="fa-solid fa-lock"></i> Khóa sổ</button>
+
+            <button class="btn-excel"><i class="fa-solid fa-file-excel"></i> Xuất Excel</button>
+        </div>
+    </div>
+
+    @* --- TABLE --- *@
+    <div class="table-container" id="gradeTable">
+        @if (isLoading)
+        {
+            <div style="padding: 20px; text-align: center; color: #666;">
+                <i class="fa-solid fa-spinner fa-spin"></i> Đang tải dữ liệu...
+            </div>
+        }
+        else
+        {
+            <table class="excel-table">
+                <thead>
+                    <tr>
+                        @* --- PHẦN CỐ ĐỊNH --- *@
+                        <th rowspan="2" class="sticky-col col-stt z-corner">STT</th>
+                        <th rowspan="2" class="sticky-col col-view z-corner">Xem</th>
+                        <th rowspan="2" class="sticky-col col-code z-corner">Mã ĐD</th>
+                        <th rowspan="2" class="sticky-col col-name z-corner">Họ và tên</th>
+
+                        @* --- PHẦN BIẾN ĐỔI THEO MÔN HỌC (txCols) --- *@
+                        <th colspan="@currentSubject.TxCols" class="th-group">ĐĐGtx (Hệ số 1)</th>
+
+                        <th rowspan="2" class="col-score">Giữa kỳ</th>
+                        <th rowspan="2" class="col-score">Cuối kỳ</th>
+
+                        @* --- LOGIC HIỂN THỊ CỘT THEO HỌC KỲ --- *@
+                        @if (hocKy == 1)
+                        {
+                            <th rowspan="2" class="col-score bg-sum">ĐTB HK1</th>
+                            <th rowspan="2" class="col-note">Nhận xét HK1</th>
+                        }
+                        else
+                        {
+                            <th rowspan="2" class="col-score text-muted">ĐTB HK1</th> @* Cột HK1 bị mờ đi *@
+                            <th rowspan="2" class="col-score bg-sum">ĐTB HK2</th>
+                            <th rowspan="2" class="col-score bg-year">Cả năm</th>
+                            <th rowspan="2" class="col-note">Nhận xét HK2</th>
+                            <th rowspan="2" class="col-note">Nhận xét CN</th>
+                        }
+                    </tr>
+                    <tr>
+                        @for (int i = 1; i <= currentSubject.TxCols; i++)
+                        {
+                            <th class="th-sub col-score">@i</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var st in currentStudents)
+                    {
+                        <tr>
+                            <td class="sticky-col col-stt text-center">@st.Stt</td>
+                            <td class="sticky-col col-view text-center"><i class="fa-solid fa-magnifying-glass text-muted"></i></td>
+                            <td class="sticky-col col-code text-center">@st.Code</td>
+                            <td class="sticky-col col-name font-name">@st.Name</td>
+
+                            @* Render input theo số cột của môn *@
+                            @for (int c = 0; c < currentSubject.TxCols; c++)
+                            {
+                                int colIndex = c;
+                                <td class="td-inp">
+                                    <input class="inp @(st.Errors.Contains(colIndex) ? "err" : "")"
+                                           disabled="@IsReadOnlyMode"
+                                           value="@st.TxScores[colIndex]"
+                                           @onchange="@(e => UpdateScore(st, colIndex, e.Value?.ToString()))" />
+                                </td>
+                            }
+
+                            <td class="td-inp"><input class="inp" disabled="@IsReadOnlyMode" value="@st.GkScore" /></td>
+                            <td class="td-inp"><input class="inp" disabled="@IsReadOnlyMode" value="@st.CkScore" /></td>
+
+                            @if (hocKy == 1)
+                            {
+                                <td class="td-readonly">@st.AvgHK1</td>
+                                <td class="td-inp"><input class="inp text-start px-2" disabled="@IsReadOnlyMode" value="@st.NoteHK1" /></td>
+                            }
+                            else
+                            {
+                                <td class="td-readonly text-muted">@st.AvgHK1</td>
+                                <td class="td-readonly font-weight-bold">@st.AvgHK2</td>
+                                <td class="td-readonly text-danger font-weight-bold">@st.AvgYear</td>
+                                <td class="td-inp"><input class="inp text-start px-2" disabled="@IsReadOnlyMode" value="@st.NoteHK2" /></td>
+                                <td class="td-inp"><input class="inp text-start px-2" disabled="@IsReadOnlyMode" value="@st.NoteCN" /></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    @* --- FOOTER --- *@
+    <div class="footer">
+        <div class="pager">
+            <button @onclick="() => LoadData(1)" disabled="@(currentPage == 1)" title="Trang đầu">
+                <i class="fa-solid fa-angles-left"></i>
+            </button>
+            <button @onclick="() => LoadData(currentPage - 1)" disabled="@(currentPage == 1)" title="Trang trước">
+                <i class="fa-solid fa-angle-left"></i>
+            </button>
+
+            <span class="page-info">Trang @currentPage / @totalPages</span>
+
+            <button @onclick="() => LoadData(currentPage + 1)" disabled="@(currentPage == totalPages)" title="Trang sau">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+            <button @onclick="() => LoadData(totalPages)" disabled="@(currentPage == totalPages)" title="Trang cuối">
+                <i class="fa-solid fa-angles-right"></i>
+            </button>
+        </div>
+        <div style="font-size:13px; color:#666; font-weight: 500;">
+            Tổng số: <b style="color:#0091ff">@totalItems</b> học sinh
+        </div>
+    </div>
+</div>
+
+@code {
+    // --- 1. CONFIG MÔN HỌC ---
+    public class SubjectConfig
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public int TxCols { get; set; }
+    }
+
+    // Danh sách môn
+    List<SubjectConfig> listSubjects = new List<SubjectConfig>
+    {
+        new SubjectConfig { Id = "Toan", Name = "Toán", TxCols = 4 },
+        new SubjectConfig { Id = "Van", Name = "Ngữ Văn", TxCols = 3 },
+        new SubjectConfig { Id = "Anh", Name = "Tiếng Anh", TxCols = 4 },
+        new SubjectConfig { Id = "Ly", Name = "Vật Lý", TxCols = 3 },
+        new SubjectConfig { Id = "Hoa", Name = "Hóa Học", TxCols = 3 },
+        new SubjectConfig { Id = "Sinh", Name = "Sinh Học", TxCols = 2 },
+        new SubjectConfig { Id = "Su", Name = "Lịch Sử", TxCols = 2 }
+    };
+
+    // --- STATE ---
+    bool isAutoRound = false;
+    bool isLoading = false;
+    bool showTutorial = true;
+    int hocKy = 1; // Sẽ được override bởi ActivePeriod
+    string selectedSubjectId = "Toan";
+    SubjectConfig currentSubject => listSubjects.First(s => s.Id == selectedSubjectId);
+
+    // --- LOCK STATE (QUAN TRỌNG) ---
+    bool isSystemLocked = false;
+    bool isTeacherLocked = false;
+    bool IsReadOnlyMode => isSystemLocked || isTeacherLocked;
+
+    // --- PAGINATION STATE ---
+    int currentPage = 1;
+    int pageSize = 20;
+    int totalItems = 0;
+    int totalPages => (int)Math.Ceiling((double)totalItems / pageSize);
+    List<Student> currentStudents = new List<Student>();
+
+    class Student
+    {
+        public int Stt;
+        public string Code;
+        public string Name;
+        public List<string> TxScores = new List<string> { "", "", "", "", "", "" };
+        public HashSet<int> Errors = new HashSet<int>();
+
+        public string GkScore;
+        public string CkScore;
+        public string AvgHK1 = "7.5";
+        public string AvgHK2 = "8.2";
+        public string AvgYear = "7.9";
+        public string NoteHK1;
+        public string NoteHK2;
+        public string NoteCN;
+    }
+
+    // --- INIT ---
+    protected override async Task OnInitializedAsync()
+    {
+        // 1. Kiểm tra Đợt nhập điểm hiện tại
+        await CheckActivePeriod();
+        // 2. Load dữ liệu
+        await LoadData(1);
+    }
+
+    // --- LOGIC CHECK ĐỢT NHẬP ĐIỂM ---
+    async Task CheckActivePeriod()
+    {
+        var activePeriod = new
+        {
+            Semester = 2,
+            ToDate = DateTime.Now.AddDays(5), // Còn 5 ngày nữa hết hạn
+            IsActive = true
+        };
+
+        // Gán học kỳ theo đợt đang active
+        hocKy = activePeriod.Semester;
+
+        // Check khóa hệ thống
+        if (!activePeriod.IsActive || DateTime.Now > activePeriod.ToDate)
+        {
+            isSystemLocked = true;
+        }
+        else
+        {
+            isSystemLocked = false;
+        }
+
+    }
+
+    // --- XỬ LÝ SỰ KIỆN ---
+    async Task OnSubjectChanged(ChangeEventArgs e)
+    {
+        selectedSubjectId = e.Value.ToString();
+        await LoadData(1);
+    }
+
+    async Task LoadData(int page)
+    {
+        if (page < 1) page = 1;
+        isLoading = true;
+        await Task.Delay(300);
+
+        currentPage = page;
+        totalItems = 55;
+        currentStudents.Clear();
+        int startStt = (page - 1) * pageSize + 1;
+        int itemsToTake = Math.Min(pageSize, totalItems - (page - 1) * pageSize);
+
+        for (int i = 0; i < itemsToTake; i++)
+        {
+            int realStt = startStt + i;
+            currentStudents.Add(new Student
+            {
+                Stt = realStt,
+                Code = "HS" + (2000 + realStt),
+                Name = GetRandomName(realStt)
+            });
+        }
+
+        isLoading = false;
+    }
+
+    async Task SaveData()
+    {
+        // Logic gửi list currentStudents về API
+        await Task.Delay(500);
+        await JS.InvokeVoidAsync("alert", "Lưu dữ liệu thành công!");
+    }
+
+    async Task LockGradeSheet()
+    {
+        bool confirmed = await JS.InvokeAsync<bool>("confirm", "XÁC NHẬN KHÓA SỔ?\n\nSau khi khóa, bạn sẽ không thể chỉnh sửa điểm số được nữa trừ khi yêu cầu Admin mở lại.");
+        if (confirmed)
+        {
+            await Task.Delay(300); 
+            isTeacherLocked = true;
+        }
+    }
+
+    void UnlockGradeSheet()
+    {
+        // Logic gửi yêu cầu mở khóa đến admin
+        JS.InvokeVoidAsync("alert", "Đã gửi yêu cầu mở khóa đến quản trị viên!");
+    }
+
+    void UpdateScore(Student st, int idx, string val)
+    {
+        if (IsReadOnlyMode) return; // Chặn logic nếu đang khóa
+
+        st.TxScores[idx] = val;
+        if (string.IsNullOrWhiteSpace(val)) { st.Errors.Remove(idx); return; }
+
+        if (double.TryParse(val, out double d))
+        {
+            if (d < 0 || d > 10)
+            {
+                st.Errors.Add(idx);
+            }
+            else
+            {
+                st.Errors.Remove(idx);
+                if (isAutoRound) d = Math.Round(d * 2, MidpointRounding.AwayFromZero) / 2;
+                st.TxScores[idx] = d.ToString("0.##");
+            }
+        }
+        else
+        {
+            st.Errors.Add(idx);
+        }
+    }
+
+    string GetRandomName(int i)
+    {
+        string[] ho = { "Nguyễn", "Trần", "Lê", "Phạm", "Huỳnh", "Hoàng" };
+        string[] ten = { "Anh", "Bình", "Châu", "Dũng", "Em", "Giang", "Hân", "Khánh" };
+        return $"{ho[i % ho.Length]} {ten[i % ten.Length]}";
+    }
+}

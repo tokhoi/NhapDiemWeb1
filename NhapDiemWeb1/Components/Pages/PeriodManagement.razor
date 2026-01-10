@@ -1,0 +1,183 @@
+﻿@page "/quan-ly-dot-nhap"
+@rendermode InteractiveServer
+
+<div class="dashboard-container">
+    @* --- HEADER --- *@
+    <div class="page-title">
+        <div class="icon-title" style="background:#dc3545"><i class="fa-solid fa-clock-rotate-left"></i></div>
+        <h4>QUẢN LÝ ĐỢT NHẬP ĐIỂM</h4>
+        <button class="btn-refresh" @onclick="() => OpenModal()"><i class="fa-solid fa-plus"></i> Tạo đợt mới</button>
+    </div>
+
+    @* --- TABLE LIST --- *@
+    <div class="chart-box" style="padding:0; overflow:hidden">
+        <table class="table table-hover mb-0" style="font-size:13px">
+            <thead style="background:#f8f9fa; font-weight:600; color:#444; border-bottom:2px solid #eee">
+                <tr>
+                    <th class="p-3">Tên đợt nhập điểm</th>
+                    <th class="p-3">Phạm vi áp dụng</th>
+                    <th class="p-3">Thời gian mở cổng</th>
+                    <th class="p-3 text-center">Trạng thái</th>
+                    <th class="p-3 text-end">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in listPeriods)
+                {
+                    <tr>
+                        <td class="p-3 align-middle fw-bold" style="color:#005b9f">@p.Name</td>
+                        <td class="p-3 align-middle"><span class="badge" style="background:#e9ecef; color:#444; border:1px solid #ccc">HK @p.Semester - Năm @p.Year</span></td>
+                        <td class="p-3 align-middle">
+                            <div style="font-weight:600">@p.FromDate.ToString("dd/MM/yyyy") <i class="fa-solid fa-arrow-right-long text-muted mx-1"></i> @p.ToDate.ToString("dd/MM/yyyy")</div>
+                            <small class="text-muted">
+                                @if (DateTime.Now < p.FromDate)
+                                {
+                                    <span>(Sắp diễn ra)</span>
+                                    ;
+                                }
+                                else if (DateTime.Now > p.ToDate)
+                                {
+
+                                    <span class="text-danger">(Đã kết thúc)</span>
+                                    ;
+                                }
+                                else
+                                {
+
+                                    <span class="text-success">(Còn @((p.ToDate - DateTime.Now).Days) ngày)</span>
+                                    ;
+                                }
+                            </small>
+                        </td>
+                        <td class="p-3 align-middle text-center">
+                            @if (!p.IsActive)
+                            {
+                                <span class="badge bg-secondary">Đã khóa tay</span>
+                            }
+                            else if (DateTime.Now > p.ToDate || DateTime.Now < p.FromDate)
+                            {
+                                <span class="badge bg-danger">Hết hạn</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Đang mở</span>
+                            }
+                        </td>
+                        <td class="p-3 align-middle text-end">
+                            <button class="btn-icon text-primary" @onclick="() => OpenModal(p)" title="Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="btn-icon @(p.IsActive ? "text-danger" : "text-success")" @onclick="() => ToggleStatus(p)" title="@(p.IsActive ? "Khóa ngay" : "Mở lại")">
+                                <i class="fa-solid @(p.IsActive ? "fa-lock" : "fa-lock-open")"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @* --- POPUP MODAL --- *@
+    @if (showModal)
+    {
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>@(editingPeriod.Id == 0 ? "TẠO ĐỢT NHẬP MỚI" : "CẬP NHẬT THÔNG TIN")</h5>
+                    <button class="close-btn" @onclick="CloseModal"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label>Tên đợt nhập điểm <span class="text-danger">*</span></label>
+                        <input class="form-control" @bind="editingPeriod.Name" placeholder="VD: Nhập điểm Giữa kỳ 2..." />
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-group mb-3">
+                            <label>Từ ngày</label>
+                            <input type="date" class="form-control" @bind="editingPeriod.FromDate" />
+                        </div>
+                        <div class="col-6 form-group mb-3">
+                            <label>Đến ngày</label>
+                            <input type="date" class="form-control" @bind="editingPeriod.ToDate" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-group mb-3">
+                            <label>Học kỳ</label>
+                            <select class="form-control" @bind="editingPeriod.Semester"><option value="1">Học kỳ 1</option><option value="2">Học kỳ 2</option></select>
+                        </div>
+                        <div class="col-6 form-group mb-3">
+                            <label>Trạng thái</label>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" id="chkActive" @bind="editingPeriod.IsActive">
+                                <label class="form-check-label" for="chkActive">Kích hoạt ngay</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" @onclick="CloseModal">Hủy bỏ</button>
+                    <button class="btn-save" @onclick="SavePeriod"><i class="fa-solid fa-floppy-disk"></i> Lưu dữ liệu</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    // MODEL
+    class GradePeriod
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public DateTime FromDate { get; set; } = DateTime.Now;
+        public DateTime ToDate { get; set; } = DateTime.Now.AddDays(7);
+        public int Semester { get; set; } = 1;
+        public string Year { get; set; } = "2025-2026";
+        public bool IsActive { get; set; } = true;
+    }
+
+    // STATE
+    bool showModal = false;
+    GradePeriod editingPeriod = new GradePeriod();
+    List<GradePeriod> listPeriods = new List<GradePeriod>
+    {
+        new GradePeriod { Id = 1, Name = "Nhập điểm Giữa kỳ 2", FromDate = DateTime.Now.AddDays(-2), ToDate = DateTime.Now.AddDays(5), Semester = 2, IsActive = true },
+        new GradePeriod { Id = 2, Name = "Nhập điểm Cuối kỳ 1", FromDate = DateTime.Now.AddMonths(-2), ToDate = DateTime.Now.AddMonths(-1), Semester = 1, IsActive = false }
+    };
+
+    // METHODS
+    void OpenModal(GradePeriod? p = null)
+    {
+        if (p == null) editingPeriod = new GradePeriod(); // Tạo mới
+        else editingPeriod = new GradePeriod // Clone để sửa không ảnh hưởng list gốc ngay
+        {
+            Id = p.Id,
+            Name = p.Name,
+            FromDate = p.FromDate,
+            ToDate = p.ToDate,
+            Semester = p.Semester,
+            IsActive = p.IsActive,
+            Year = p.Year
+        };
+        showModal = true;
+    }
+
+    void CloseModal() => showModal = false;
+
+    void SavePeriod()
+    {
+        if (editingPeriod.Id == 0)
+        {
+            editingPeriod.Id = listPeriods.Count + 1;
+            listPeriods.Insert(0, editingPeriod);
+        }
+        else
+        {
+            var idx = listPeriods.FindIndex(x => x.Id == editingPeriod.Id);
+            if (idx >= 0) listPeriods[idx] = editingPeriod;
+        }
+        showModal = false;
+    }
+
+    void ToggleStatus(GradePeriod p) => p.IsActive = !p.IsActive;
+}
+

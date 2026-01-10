@@ -1,0 +1,211 @@
+﻿@page "/quan-ly-khoa-diem"
+@rendermode InteractiveServer
+
+<div class="dashboard-container">
+    @* --- HEADER --- *@
+    <div class="page-title">
+        <div class="icon-title" style="background:#6f42c1"><i class="fa-solid fa-shield-halved"></i></div>
+        <h4>TRẠNG THÁI NHẬP ĐIỂM & KHÓA SỔ</h4>
+
+        <div class="ms-auto d-flex gap-2">
+            @* Dropdown chọn đợt nhập điểm *@
+            <select class="form-select" @onchange="OnPeriodChanged">
+                @foreach (var p in listPeriods)
+                {
+                    <option value="@p.Id">@p.Name (@(p.IsActive ? "Đang mở" : "Đã đóng"))</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    @* --- LEVEL 1: KHỐI --- *@
+    <div class="lock-container">
+        @foreach (var grade in Grades)
+        {
+            <div class="grade-block">
+                @* Header Khối *@
+                <div class="grade-header" @onclick="() => ToggleGrade(grade)">
+                    <div class="d-flex align-center gap-2">
+                        <i class="fa-solid @(grade.IsExpanded ? "fa-chevron-down" : "fa-chevron-right") text-muted" style="width:15px"></i>
+                        <span class="fw-bold text-primary">KHỐI @grade.Name</span>
+                        <span class="badge bg-light text-dark border">@grade.Classes.Count lớp</span>
+                    </div>
+
+                    <div class="d-flex align-center gap-3">
+                        <div class="progress-box">
+                            <span class="small text-muted me-2">Tiến độ khóa: @grade.LockPercent%</span>
+                            <div class="progress" style="height: 6px; width: 100px;">
+                                <div class="progress-bar @GetProgressColor(grade.LockPercent)" role="progressbar" style="width: @grade.LockPercent%"></div>
+                            </div>
+                        </div>
+                        <button class="btn-icon-action" @onclick:stopPropagation title="Khóa toàn khối"><i class="fa-solid fa-lock"></i></button>
+                    </div>
+                </div>
+
+                @* Level 2: DANH SÁCH LỚP (Chỉ hiện khi Expand Khối) *@
+                @if (grade.IsExpanded)
+                {
+                    <div class="class-list animate-fade-in">
+                        @foreach (var cls in grade.Classes)
+                        {
+                            <div class="class-item @(cls.IsExpanded ? "active" : "")">
+                                <div class="class-header" @onclick="() => ToggleClass(cls)">
+                                    <div class="d-flex align-center gap-3">
+                                        <i class="fa-solid @(cls.IsExpanded ? "fa-folder-open" : "fa-folder") text-warning"></i>
+                                        <b class="text-dark">@cls.Name</b>
+                                        <span class="small text-muted">GVCN: @cls.TeacherName</span>
+                                    </div>
+                                    <div class="d-flex align-center gap-3">
+                                        @if (cls.IsFullLocked)
+                                        {
+                                            <span class="badge bg-success"><i class="fa-solid fa-check"></i> Đã khóa sổ</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark">Chưa xong (@cls.LockedSubjects/@cls.TotalSubjects môn)</span>
+                                        }
+                                        @* Nút khóa nhanh cả lớp *@
+                                        <div class="form-check form-switch" @onclick:stopPropagation>
+                                            <input class="form-check-input" type="checkbox" checked="@cls.IsFullLocked" @onchange="() => ToggleLockClass(cls)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @* Level 3: DANH SÁCH MÔN (Chỉ hiện khi Expand Lớp) *@
+                                @if (cls.IsExpanded)
+                                {
+                                    <div class="subject-grid animate-fade-in">
+                                        @foreach (var sub in cls.Subjects)
+                                        {
+                                            <div class="subject-card @(sub.IsLocked ? "locked" : "")" @onclick="() => ToggleSubject(sub, cls)">
+                                                <div class="sub-name">@sub.Name</div>
+                                                <div class="sub-status">
+                                                    @if (sub.IsLocked)
+                                                    {
+                                                        <span class="text-success"><i class="fa-solid fa-lock"></i> Đã khóa</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-danger"><i class="fa-solid fa-lock-open"></i> Đang mở</span>
+                                                    }
+                                                </div>
+                                                <div class="sub-teacher">GV: @sub.TeacherCode</div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    // --- MODELS ---
+    class GradeModel
+    {
+        public string Name { get; set; }
+        public bool IsExpanded { get; set; }
+        public List<ClassModel> Classes { get; set; } = new();
+        public int LockPercent => Classes.Any() ? (int)(Classes.Average(c => (double)c.LockedSubjects / c.TotalSubjects * 100)) : 0;
+    }
+
+    class ClassModel
+    {
+        public string Name { get; set; }
+        public string TeacherName { get; set; }
+        public bool IsExpanded { get; set; }
+        public List<SubjectModel> Subjects { get; set; } = new();
+        public int TotalSubjects => Subjects.Count;
+        public int LockedSubjects => Subjects.Count(s => s.IsLocked);
+        public bool IsFullLocked => LockedSubjects == TotalSubjects;
+    }
+
+    class SubjectModel
+    {
+        public string Name { get; set; }
+        public string TeacherCode { get; set; }
+        public bool IsLocked { get; set; }
+    }
+
+    // Class giả lập đợt nhập điểm (giống bên PointInput)
+    class GradePeriod
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    // --- DATA ---
+    List<GradePeriod> listPeriods = new List<GradePeriod>
+    {
+        new GradePeriod { Id = 1, Name = "Giữa HK2 (2025-2026)", IsActive = true },
+        new GradePeriod { Id = 2, Name = "Cuối HK1 (2025-2026)", IsActive = false }
+    };
+
+    List<GradeModel> Grades = new List<GradeModel>();
+    int selectedPeriodId = 1;
+
+    protected override void OnInitialized()
+    {
+        LoadDataForPeriod(selectedPeriodId);
+    }
+
+    void OnPeriodChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int id))
+        {
+            selectedPeriodId = id;
+            LoadDataForPeriod(id);
+        }
+    }
+
+    void LoadDataForPeriod(int periodId)
+    {
+        // Mock Data: Khi đổi đợt, dữ liệu khóa sẽ khác nhau (giả lập random)
+        Grades.Clear();
+        var subjectsTemplate = new[] { "Toán", "Văn", "Anh", "Lý", "Hóa", "Sinh", "Sử", "Địa", "GDCD", "Tin" };
+        var rnd = new Random(periodId); // Seed random theo periodId để cố định kết quả
+
+        for (int g = 10; g <= 12; g++)
+        {
+            var grade = new GradeModel { Name = g.ToString() };
+            for (int c = 1; c <= 5; c++)
+            {
+                var cls = new ClassModel { Name = $"{g}A{c}", TeacherName = "Nguyễn Văn A" };
+                foreach (var s in subjectsTemplate)
+                {
+                    cls.Subjects.Add(new SubjectModel
+                    {
+                        Name = s,
+                        TeacherCode = "GV00" + c,
+                        IsLocked = rnd.Next(0, 2) == 1 // Random lock status
+                    });
+                }
+                grade.Classes.Add(cls);
+            }
+            Grades.Add(grade);
+        }
+    }
+
+    // --- ACTIONS ---
+    void ToggleGrade(GradeModel g) => g.IsExpanded = !g.IsExpanded;
+
+    void ToggleClass(ClassModel c) => c.IsExpanded = !c.IsExpanded;
+
+    void ToggleLockClass(ClassModel c)
+    {
+        bool newState = !c.IsFullLocked;
+        foreach (var s in c.Subjects) s.IsLocked = newState;
+    }
+
+    void ToggleSubject(SubjectModel s, ClassModel c)
+    {
+        s.IsLocked = !s.IsLocked;
+    }
+
+    string GetProgressColor(int p) => p < 50 ? "bg-danger" : (p < 100 ? "bg-warning" : "bg-success");
+}

@@ -1,0 +1,1882 @@
+/* _content/NhapDiemWeb1/Components/Layout/MainLayout.razor.rz.scp.css */
+.app-layout[b-3jt7ucvqwf] {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-header[b-3jt7ucvqwf] {
+    background-color: #1b6ec2;
+    color: white;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 20;
+}
+
+.header-left[b-3jt7ucvqwf], .header-right[b-3jt7ucvqwf] {
+    display: flex;
+    align-items: center;
+}
+
+.brand[b-3jt7ucvqwf] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.logo-box[b-3jt7ucvqwf] {
+    width: 28px;
+    height: 28px;
+    background: white;
+    color: #d32f2f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border: 2px solid white;
+}
+
+.brand-name[b-3jt7ucvqwf] {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.divider[b-3jt7ucvqwf] {
+    width: 1px;
+    height: 20px;
+    background: rgba(255,255,255,0.4);
+    margin: 0 15px;
+}
+
+.school-name[b-3jt7ucvqwf] {
+    color: #ffeb3b;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    display: none;
+}
+
+@media(min-width: 992px) {
+    .school-name[b-3jt7ucvqwf] {
+        display: block;
+    }
+}
+
+.dropdown-box[b-3jt7ucvqwf] {
+    background: white;
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 220px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.level-box[b-3jt7ucvqwf] {
+    background: white;
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-width: 100px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.ms-auto[b-3jt7ucvqwf] {
+    margin-left: auto;
+}
+
+.text-muted[b-3jt7ucvqwf] {
+    color: #888;
+    font-size: 12px;
+}
+
+.user-role[b-3jt7ucvqwf] {
+    font-weight: 600;
+    font-size: 13px;
+    margin-right: 15px;
+}
+
+.semester-badge[b-3jt7ucvqwf] {
+    font-weight: 700;
+    color: #ffeb3b;
+    text-decoration: underline;
+    font-size: 13px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.actions[b-3jt7ucvqwf] {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 1px solid rgba(255,255,255,0.3);
+    padding-left: 15px;
+}
+
+.action-item[b-3jt7ucvqwf] {
+    font-weight: 700;
+    color: #ffeb3b;
+    text-decoration: underline;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.actions i[b-3jt7ucvqwf] {
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.9;
+    position: relative;
+}
+
+    .actions i:hover[b-3jt7ucvqwf] {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+.dot[b-3jt7ucvqwf] {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: #ffeb3b;
+    border-radius: 50%;
+}
+
+.app-menu[b-3jt7ucvqwf] {
+    background: white;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-bottom: 1px solid #dee2e6;
+    overflow-x: auto;
+    flex-shrink: 0;
+}
+
+.menu-link[b-3jt7ucvqwf] {
+    padding: 0 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    color: #444;
+    font-size: 13px;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+    .menu-link i[b-3jt7ucvqwf] {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .menu-link:hover[b-3jt7ucvqwf] {
+        background-color: #f8f9fa;
+        color: #0091ff;
+    }
+
+        .menu-link:hover i[b-3jt7ucvqwf] {
+            color: #0091ff;
+        }
+
+    .menu-link.active[b-3jt7ucvqwf] {
+        color: #0091ff;
+        background-color: #eef7ff;
+        font-weight: 700;
+    }
+
+        .menu-link.active i[b-3jt7ucvqwf] {
+            color: #0091ff;
+        }
+
+.app-content[b-3jt7ucvqwf] {
+    flex: 1;
+    overflow: hidden;
+    background-color: #f4f6f9;
+    position: relative;
+}
+/* CSS Dropdown Menu */
+.dropdown-box[b-3jt7ucvqwf], .level-box[b-3jt7ucvqwf] {
+    position: relative;
+}
+
+.dropdown-menu[b-3jt7ucvqwf] {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    z-index: 100;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.menu-item[b-3jt7ucvqwf] {
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #333;
+}
+
+    .menu-item:hover[b-3jt7ucvqwf] {
+        background: #f0f7ff;
+        color: #0091ff;
+    }
+
+.overlay[b-3jt7ucvqwf] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 90;
+}
+/* _content/NhapDiemWeb1/Components/Layout/NavMenu.razor.rz.scp.css */
+/* _content/NhapDiemWeb1/Components/Pages/Dashboard.razor.rz.scp.css */
+.dashboard-container[b-nw20lx9an7] {
+    padding: 20px 30px;
+    height: 100%;
+    overflow-y: auto;
+    background: #f4f6f9;
+}
+
+.page-title[b-nw20lx9an7] {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.icon-title[b-nw20lx9an7] {
+    width: 32px;
+    height: 32px;
+    background: #1b6ec2;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-title h4[b-nw20lx9an7] {
+    margin: 0;
+    font-weight: 700;
+    color: #444;
+}
+
+.btn-refresh[b-nw20lx9an7] {
+    margin-left: auto;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+    .btn-refresh:hover[b-nw20lx9an7] {
+        background: #f8f9fa;
+    }
+
+/* KPI CARDS */
+.kpi-grid[b-nw20lx9an7] {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.kpi-card[b-nw20lx9an7] {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    transition: transform 0.2s;
+}
+
+    .kpi-card:hover[b-nw20lx9an7] {
+        transform: translateY(-3px);
+    }
+
+.kpi-text .label[b-nw20lx9an7] {
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+}
+
+.kpi-text .value[b-nw20lx9an7] {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.2;
+    margin-top: 5px;
+}
+
+.kpi-text .sub[b-nw20lx9an7] {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #666;
+}
+
+.kpi-icon[b-nw20lx9an7] {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.bg-blue[b-nw20lx9an7] {
+    background: #e6f7ff;
+    color: #0091ff;
+}
+
+.bg-purple[b-nw20lx9an7] {
+    background: #f3e5f5;
+    color: #9c27b0;
+}
+
+.bg-orange[b-nw20lx9an7] {
+    background: #fff3e0;
+    color: #ff9800;
+}
+
+.bg-red[b-nw20lx9an7] {
+    background: #ffebee;
+    color: #f44336;
+}
+
+.text-success[b-nw20lx9an7] {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.text-danger[b-nw20lx9an7] {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+/* CHART CARDS */
+.chart-grid[b-nw20lx9an7] {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.chart-box[b-nw20lx9an7] {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.chart-head[b-nw20lx9an7] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+    .chart-head .title[b-nw20lx9an7] {
+        font-weight: 700;
+        color: #0091ff;
+        font-size: 15px;
+    }
+
+.chart-content[b-nw20lx9an7] {
+    height: 200px;
+    position: relative;
+}
+
+.chart-footer[b-nw20lx9an7] {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    margin-top: 15px;
+}
+
+.toggle-group[b-nw20lx9an7] {
+    display: flex;
+    background: #f1f3f5;
+    padding: 3px;
+    border-radius: 4px;
+}
+
+    .toggle-group span[b-nw20lx9an7] {
+        font-size: 11px;
+        padding: 3px 8px;
+        cursor: pointer;
+        color: #888;
+        border-radius: 3px;
+    }
+
+        .toggle-group span.active[b-nw20lx9an7] {
+            background: white;
+            color: #0091ff;
+            font-weight: 700;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+.badge[b-nw20lx9an7] {
+    font-size: 10px;
+    border: 1px solid #ddd;
+    padding: 2px 6px;
+    border-radius: 10px;
+    color: #999;
+}
+/* _content/NhapDiemWeb1/Components/Pages/GradeLockManager.razor.rz.scp.css */
+/* =========================================================
+   CSS CHO TRANG QUẢN LÝ KHÓA ĐIỂM (GradeLockManager)
+   ========================================================= */
+
+/* Layout Container */
+.dashboard-container[b-r51woi4jmf] {
+    padding: 20px 30px;
+    height: 100%;
+    overflow-y: auto;
+    background: #f4f6f9;
+    font-family: 'Segoe UI', sans-serif;
+}
+.page-title[b-r51woi4jmf] {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.icon-title[b-r51woi4jmf] {
+    width: 32px;
+    height: 32px;
+    background: #dc3545; 
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.page-title h4[b-r51woi4jmf] {
+    margin: 0;
+    font-weight: 700;
+    color: #444;
+    font-size: 18px;
+}
+.page-title .form-select[b-r51woi4jmf] {
+    height: 25px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+    .page-title .form-select:hover[b-r51woi4jmf] {
+        background: #f8faff;
+        border: 1px solid #eee;
+        cursor: pointer;
+    }
+
+/* --- 1. GRADE BLOCK (Cấp 1 - Khối) --- */
+.lock-container[b-r51woi4jmf] {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.grade-block[b-r51woi4jmf] {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    overflow: hidden;
+}
+
+.grade-header[b-r51woi4jmf] {
+    padding: 15px 20px;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: white;
+    transition: background 0.2s;
+}
+
+    .grade-header:hover[b-r51woi4jmf] {
+        background: #f8faff;
+    }
+
+/* --- 2. CLASS LIST (Cấp 2 - Lớp) --- */
+.class-list[b-r51woi4jmf] {
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    padding: 10px 20px;
+}
+
+.class-item[b-r51woi4jmf] {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+    .class-item.active[b-r51woi4jmf] {
+        border-color: #b3d7ff;
+        box-shadow: 0 0 0 3px rgba(0, 145, 255, 0.1);
+    }
+
+.class-header[b-r51woi4jmf] {
+    padding: 10px 15px;
+    display: flex; /* Đã có flex */
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+    .class-header:hover[b-r51woi4jmf] {
+        background: #f1f3f5;
+    }
+
+/* --- 3. SUBJECT GRID (Cấp 3 - Môn học) --- */
+.subject-grid[b-r51woi4jmf] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    padding: 15px;
+    background: #eef2f7;
+    border-top: 1px dashed #ddd;
+}
+
+.subject-card[b-r51woi4jmf] {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    border-left: 4px solid #dc3545; /* Mặc định đỏ */
+}
+
+    .subject-card:hover[b-r51woi4jmf] {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .subject-card.locked[b-r51woi4jmf] {
+        border-left-color: #28a745; /* Khóa thì xanh */
+        background: #f0fff4;
+    }
+
+.sub-name[b-r51woi4jmf] {
+    font-weight: 700;
+    color: #444;
+    font-size: 14px;
+}
+
+.sub-status[b-r51woi4jmf] {
+    font-size: 12px;
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+}
+
+.sub-teacher[b-r51woi4jmf] {
+    font-size: 11px;
+    color: #888;
+}
+
+/* --- 4. UTILS (ĐÃ SỬA: CÔ LẬP PHẠM VI) --- */
+/* Chỉ áp dụng các class này NẾU chúng nằm trong .dashboard-container */
+
+.dashboard-container .animate-fade-in[b-r51woi4jmf] {
+    animation: fadeIn-b-r51woi4jmf 0.3s ease-out;
+}
+
+@keyframes fadeIn-b-r51woi4jmf {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dashboard-container .btn-icon-action[b-r51woi4jmf] {
+    background: none;
+    border: 1px solid #ddd;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    cursor: pointer;
+}
+
+    .dashboard-container .btn-icon-action:hover[b-r51woi4jmf] {
+        background: #eee;
+        color: #333;
+    }
+
+/* Quan trọng: Thêm tiền tố .dashboard-container để không ảnh hưởng Login */
+.dashboard-container .d-flex[b-r51woi4jmf] {
+    display: flex;
+}
+
+.dashboard-container .align-center[b-r51woi4jmf] {
+    align-items: center;
+}
+
+.dashboard-container .gap-2[b-r51woi4jmf] {
+    gap: 8px;
+}
+
+.dashboard-container .gap-3[b-r51woi4jmf] {
+    gap: 16px;
+}
+
+.dashboard-container .ms-auto[b-r51woi4jmf] {
+    margin-left: auto;
+}
+
+.dashboard-container .fw-bold[b-r51woi4jmf] {
+    font-weight: 700;
+}
+
+/* Thanh tiến độ nhỏ */
+.progress-box[b-r51woi4jmf] {
+    display: flex;
+    align-items: center;
+}
+/* _content/NhapDiemWeb1/Components/Pages/Login.razor.rz.scp.css */
+.login-page[b-b7un0vqytm] {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f2f5;
+}
+
+.login-card[b-b7un0vqytm] {
+    width: 900px;
+    height: 600px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    display: flex;
+    overflow: hidden;
+}
+
+/* LEFT SIDE */
+.brand-side[b-b7un0vqytm] {
+    flex: 1;
+    background-color: #4b8cce;
+    position: relative;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+}
+
+.logo-large[b-b7un0vqytm] {
+    font-size: 80px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.features[b-b7un0vqytm] {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+    font-size: 12px;
+}
+
+    .features i[b-b7un0vqytm] {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+
+/* RIGHT SIDE */
+.form-side[b-b7un0vqytm] {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: white; /* Đảm bảo nền trắng */
+}
+
+.form-header[b-b7un0vqytm] {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.icon-lock[b-b7un0vqytm] {
+    background: #fd7e14;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.form-header h4[b-b7un0vqytm] {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+}
+
+.sub-text[b-b7un0vqytm] {
+    font-size: 12px;
+    color: #666;
+}
+
+.form-body[b-b7un0vqytm] {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-group label[b-b7un0vqytm] {
+    font-size: 11px;
+    font-weight: 700;
+    color: #555;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.input-group[b-b7un0vqytm] {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.input-icon[b-b7un0vqytm] {
+    background: #f8f9fa;
+    padding: 8px 12px;
+    border-right: 1px solid #ddd;
+    color: #666;
+}
+
+.input-group input[b-b7un0vqytm] {
+    border: none;
+    padding: 8px;
+    width: 100%;
+    outline: none;
+}
+
+.form-select[b-b7un0vqytm] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 13px;
+}
+
+.divider[b-b7un0vqytm] {
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 5px;
+}
+
+.captcha-row[b-b7un0vqytm] {
+    display: flex;
+    gap: 10px;
+}
+
+.captcha-input[b-b7un0vqytm] {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.captcha-code[b-b7un0vqytm] {
+    width: 100px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-decoration: line-through;
+    color: #555;
+}
+
+.btn-refresh[b-b7un0vqytm] {
+    background: none;
+    color: #0091ff;
+    font-size: 16px;
+}
+
+.remember-row[b-b7un0vqytm] {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    align-items: center;
+}
+
+.forgot-pass[b-b7un0vqytm] {
+    color: #0091ff;
+}
+
+.btn-submit[b-b7un0vqytm] {
+    background: #0091ff;
+    color: white;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+    .btn-submit:hover[b-b7un0vqytm] {
+        background: #007acc;
+    }
+
+.btn-vneid[b-b7un0vqytm] {
+    background: white;
+    border: 1px solid #ddd;
+    color: #333;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+    .btn-vneid:hover[b-b7un0vqytm] {
+        background: #f8f9fa;
+    }
+/* _content/NhapDiemWeb1/Components/Pages/PeriodManagement.razor.rz.scp.css */
+/* --- 1. LAYOUT CHUNG (Đồng bộ với Dashboard) --- */
+.dashboard-container[b-eyqoarh090] {
+    padding: 20px 30px;
+    height: 100%;
+    overflow-y: auto;
+    background: #f4f6f9;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.page-title[b-eyqoarh090] {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.icon-title[b-eyqoarh090] {
+    width: 32px;
+    height: 32px;
+    background: #dc3545; /* Màu đỏ đặc trưng cho trang quản lý */
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.page-title h4[b-eyqoarh090] {
+    margin: 0;
+    font-weight: 700;
+    color: #444;
+    font-size: 18px;
+}
+
+.btn-refresh[b-eyqoarh090] {
+    margin-left: auto;
+    background: #0091ff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+    .btn-refresh:hover[b-eyqoarh090] {
+        background: #007acc;
+    }
+
+/* --- 2. TABLE & LIST --- */
+.chart-box[b-eyqoarh090] {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    overflow: hidden; /* Bo góc cho table bên trong */
+}
+
+.table[b-eyqoarh090] {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+    .table thead th[b-eyqoarh090] {
+        background: #f8f9fa;
+        color: #444;
+        font-weight: 600;
+        text-align: left;
+        border-bottom: 2px solid #eee;
+        padding: 12px 15px;
+    }
+
+    .table tbody td[b-eyqoarh090] {
+        padding: 12px 15px;
+        border-bottom: 1px solid #f0f0f0;
+        vertical-align: middle;
+        color: #333;
+    }
+
+    .table tbody tr:hover[b-eyqoarh090] {
+        background-color: #f8faff;
+    }
+
+    .table tbody tr:last-child td[b-eyqoarh090] {
+        border-bottom: none;
+    }
+
+/* Text & Badges trong bảng */
+.text-muted[b-eyqoarh090] {
+    color: #888 !important;
+    font-size: 0.9em;
+}
+
+.text-success[b-eyqoarh090] {
+    color: #28a745 !important;
+}
+
+.text-danger[b-eyqoarh090] {
+    color: #dc3545 !important;
+}
+
+.text-primary[b-eyqoarh090] {
+    color: #0091ff !important;
+}
+
+.badge[b-eyqoarh090] {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    display: inline-block;
+}
+
+.bg-success[b-eyqoarh090] {
+    background: #28a745;
+}
+
+.bg-danger[b-eyqoarh090] {
+    background: #dc3545;
+}
+
+.bg-secondary[b-eyqoarh090] {
+    background: #6c757d;
+}
+
+/* Action Buttons trong bảng */
+.btn-icon[b-eyqoarh090] {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 6px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+    .btn-icon:hover[b-eyqoarh090] {
+        background-color: #f1f3f5;
+    }
+
+/* --- 3. MODAL POPUP --- */
+.modal-backdrop[b-eyqoarh090] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+.modal-content[b-eyqoarh090] {
+    background: white;
+    width: 550px;
+    max-width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn-b-eyqoarh090 0.2s ease-out;
+}
+
+@keyframes fadeIn-b-eyqoarh090 {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header[b-eyqoarh090] {
+    background: #0091ff;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .modal-header h5[b-eyqoarh090] {
+        margin: 0;
+        font-weight: 700;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+.close-btn[b-eyqoarh090] {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+    .close-btn:hover[b-eyqoarh090] {
+        opacity: 1;
+    }
+
+.modal-body[b-eyqoarh090] {
+    padding: 20px;
+    background: #fff;
+}
+
+.modal-footer[b-eyqoarh090] {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* --- 4. FORM ELEMENTS --- */
+.form-group[b-eyqoarh090] {
+    margin-bottom: 15px;
+}
+
+    .form-group label[b-eyqoarh090] {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #555;
+    }
+
+.form-control[b-eyqoarh090] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 13px;
+    color: #333;
+    transition: border-color 0.2s;
+    box-sizing: border-box; /* Quan trọng để không bị vỡ layout */
+}
+
+    .form-control:focus[b-eyqoarh090] {
+        border-color: #0091ff;
+        box-shadow: 0 0 0 3px rgba(0, 145, 255, 0.1);
+    }
+
+/* Checkbox style */
+.form-check[b-eyqoarh090] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.form-check-input[b-eyqoarh090] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #0091ff;
+}
+
+.form-check-label[b-eyqoarh090] {
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+    margin-bottom: 0 !important;
+}
+
+/* Modal Buttons */
+.btn-save[b-eyqoarh090] {
+    background: #0091ff;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .btn-save:hover[b-eyqoarh090] {
+        background: #007acc;
+    }
+
+.btn-cancel[b-eyqoarh090] {
+    background: white;
+    border: 1px solid #ddd;
+    color: #666;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .btn-cancel:hover[b-eyqoarh090] {
+        background: #f1f3f5;
+        color: #333;
+    }
+
+/* Helpers layout */
+.row[b-eyqoarh090] {
+    display: flex;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.col-6[b-eyqoarh090] {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+/* CSS Riêng cho Modal */
+.modal-backdrop[b-eyqoarh090] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content[b-eyqoarh090] {
+    background: white;
+    width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    overflow: hidden;
+    animation: fadeIn-b-eyqoarh090 0.2s ease-out;
+}
+
+.modal-header[b-eyqoarh090] {
+    background: #0091ff;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .modal-header h5[b-eyqoarh090] {
+        margin: 0;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+.close-btn[b-eyqoarh090] {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-body[b-eyqoarh090] {
+    padding: 20px;
+}
+
+.modal-footer[b-eyqoarh090] {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Inputs */
+.form-control[b-eyqoarh090] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+}
+
+    .form-control:focus[b-eyqoarh090] {
+        border-color: #0091ff;
+        box-shadow: 0 0 0 2px #e6f7ff;
+    }
+
+/* Buttons */
+.btn-icon[b-eyqoarh090] {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+}
+
+    .btn-icon:hover[b-eyqoarh090] {
+        opacity: 0.7;
+    }
+
+.btn-cancel[b-eyqoarh090] {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 6px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.badge[b-eyqoarh090] {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+}
+
+.bg-success[b-eyqoarh090] {
+    background: #28a745;
+}
+
+.bg-danger[b-eyqoarh090] {
+    background: #dc3545;
+}
+
+.bg-secondary[b-eyqoarh090] {
+    background: #6c757d;
+}
+/* _content/NhapDiemWeb1/Components/Pages/PointInput.razor.rz.scp.css */
+/* --- LAYOUT CHUNG --- */
+.point-page[b-7ftifo1iyd] {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 5rem);
+    padding: 10px;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden; 
+    background-color: #f5f7fa;
+}
+
+/* HEADER & FILTER (Giữ nguyên) */
+.page-header[b-7ftifo1iyd] {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.page-title[b-7ftifo1iyd] {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    height: 50px;
+}
+
+.icons-title[b-7ftifo1iyd] {
+    width: 32px;
+    height: 32px;
+    background: #1b6ec2;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    .icons-title i[b-7ftifo1iyd]{
+        font-size:18px;
+    }
+
+.page-title h4[b-7ftifo1iyd] {
+    margin: 0;
+    font-size:18px;
+    font-weight: 700;
+    color: #444;
+}
+.filter-bar[b-7ftifo1iyd] {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.group[b-7ftifo1iyd] {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+}
+
+    .group select[b-7ftifo1iyd] {
+        padding: 5px 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        font-size: 13px;
+        min-width: 90px;
+    }
+
+.select-highlight[b-7ftifo1iyd] {
+    color: rgb(0, 0, 0);
+    border-color: #b3d7ff;
+}
+
+/* BUTTONS */
+.btn-save[b-7ftifo1iyd] {
+    background: #198754;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+    .btn-save:hover[b-7ftifo1iyd] {
+        background: #157347;
+    }
+.btn-lock[b-7ftifo1iyd] {
+    background: #eda00b;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    margin-left: 12px;
+}
+    .btn-lock:hover[b-7ftifo1iyd] {
+        background: #ffbd3d;
+    }
+
+.btn-excel[b-7ftifo1iyd] {
+    background: #0091ff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+    .btn-excel:hover[b-7ftifo1iyd] {
+        background: #007acc;
+    }
+
+.ms-auto[b-7ftifo1iyd] {
+    margin-left: auto;
+}
+
+/* POPUPS */
+.blue-popup[b-7ftifo1iyd] {
+    position: absolute;
+    top: 35px;
+    left: -10px;
+    z-index: 2000;
+    background: #0091ff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    width: 260px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    font-size: 12px;
+    line-height: 1.4;
+    animation: fadeIn-b-7ftifo1iyd 0.3s ease-out;
+}
+
+.popup-arrow[b-7ftifo1iyd] {
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
+    background: #0091ff;
+    transform: rotate(45deg);
+}
+
+.popup-content[b-7ftifo1iyd] {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+}
+
+.popup-close[b-7ftifo1iyd] {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    color: white;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    float: right;
+    cursor: pointer;
+}
+
+.pop-error[b-7ftifo1iyd] {
+    position: absolute;
+    bottom: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #dc3545;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    animation: bounce-b-7ftifo1iyd 0.2s ease-out;
+}
+
+    .pop-error[b-7ftifo1iyd]::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -4px;
+        border: 4px solid transparent;
+        border-top-color: #dc3545;
+    }
+
+/* --- TABLE SYSTEM (Fixed) --- */
+.table-container[b-7ftifo1iyd] {
+    flex: 1; 
+    overflow: auto; 
+    background: white;
+    border: 1px solid #ccc;
+    position: relative;
+    border-radius: 4px 4px 0 0; 
+}
+
+.excel-table[b-7ftifo1iyd] {
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 100%;
+    width: max-content;
+    table-layout: fixed; /* Quan trọng để cột không bị nhảy lung tung */
+}
+
+    /* Các ô chung */
+    .excel-table th[b-7ftifo1iyd], .excel-table td[b-7ftifo1iyd] {
+        border-right: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+        height: 34px; /* Fix cứng chiều cao */
+        padding: 0;
+        box-sizing: border-box;
+        font-size: 13px;
+        vertical-align: middle; /* Căn giữa dọc chuẩn Table */
+    }
+
+    /* HEADER STYLES */
+    .excel-table thead th[b-7ftifo1iyd] {
+        background: #005b9f;
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+.th-group[b-7ftifo1iyd] {
+    background: #005b9f !important;
+    border-bottom: 1px solid #4da3e2 !important;
+}
+
+.excel-table thead tr:nth-child(2) th[b-7ftifo1iyd] {
+    top: 34px;
+    background: #2a92df;
+    z-index: 10;
+}
+
+/* COLUMN WIDTHS */
+.col-stt[b-7ftifo1iyd] {
+    width: 40px;
+    min-width: 40px;
+}
+
+.col-view[b-7ftifo1iyd] {
+    width: 40px;
+    min-width: 40px;
+}
+
+.col-code[b-7ftifo1iyd] {
+    width: 90px;
+    min-width: 90px;
+}
+
+.col-name[b-7ftifo1iyd] {
+    width: 220px;
+    min-width: 220px;
+}
+
+.col-score[b-7ftifo1iyd] {
+    width: 65px;
+    min-width: 65px;
+}
+
+.col-note[b-7ftifo1iyd] {
+    min-width: 150px;
+    width: auto;
+}
+
+/* STICKY LEFT COLUMNS */
+.sticky-col[b-7ftifo1iyd] {
+    position: sticky;
+    background: white;
+    z-index: 5;
+    border-right: 1px solid #ddd;
+}
+
+.col-stt.sticky-col[b-7ftifo1iyd] {
+    left: 0;
+}
+
+.col-view.sticky-col[b-7ftifo1iyd] {
+    left: 40px;
+}
+
+.col-code.sticky-col[b-7ftifo1iyd] {
+    left: 80px;
+}
+
+.col-name.sticky-col[b-7ftifo1iyd] {
+    left: 170px;
+    border-right: 2px solid #bbb !important;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+/* GÓC CHẾT */
+.z-corner[b-7ftifo1iyd] {
+    z-index: 20 !important;
+    background: #005b9f !important;
+    border-right: 1px solid #4da3e2 !important;
+}
+
+.col-name.z-corner[b-7ftifo1iyd] {
+    border-right: 2px solid #4da3e2 !important;
+}
+
+/* BODY STYLES */
+.excel-table tbody tr:hover td[b-7ftifo1iyd] {
+    background-color: #f0f8ff;
+}
+.excel-table tbody td.sticky-col[b-7ftifo1iyd] {
+    background-color: white;
+}
+.excel-table tbody tr:hover td.sticky-col[b-7ftifo1iyd] {
+    background-color: #f0f8ff;
+}
+
+/* --- HELPER CLASSES (ĐÃ SỬA LỖI) --- */
+
+.text-center[b-7ftifo1iyd] {
+    text-align: center;
+}
+
+.text-start[b-7ftifo1iyd] {
+    text-align: left;
+}
+
+.font-name[b-7ftifo1iyd] {
+    font-weight: 600;
+    color: #2c3e50;
+    padding-left: 8px !important;
+    text-align: left;
+}
+
+/* INPUTS */
+.td-inp[b-7ftifo1iyd] {
+    position: relative;
+    width: 65px;
+}
+
+.inp[b-7ftifo1iyd] {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    text-align: center;
+    background: transparent;
+    font-family: 'Consolas', monospace;
+    font-weight: 600;
+    font-size: 13px;
+    display: block; /* Input là block ok, nhưng td cha phải là table-cell */
+}
+
+    .inp:focus[b-7ftifo1iyd] {
+        background: #e6f7ff;
+        box-shadow: inset 0 0 0 2px #0091ff;
+    }
+
+    .inp.err[b-7ftifo1iyd] {
+        background: #ffe6e6;
+        color: #dc3545;
+    }
+
+/* Readonly Cell */
+.td-readonly[b-7ftifo1iyd] {
+    background: #f8f9fa;
+    color: #0091ff;
+    font-weight: 700;
+    text-align: center;
+    /* Không cần div wrapper flex nữa, để td tự xử lý */
+}
+
+/* Footer */
+.footer[b-7ftifo1iyd] {
+    background: #f8f9fa;
+    padding: 8px 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.pager button[b-7ftifo1iyd] {
+    border: 1px solid #ccc;
+    background: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    .pager button:hover:not(:disabled)[b-7ftifo1iyd] {
+        background: #e9ecef;
+    }
+
+    .pager button:disabled[b-7ftifo1iyd] {
+        opacity: 0.5;
+    }
+
+@keyframes bounce-b-7ftifo1iyd {
+    from {
+        transform: translate(-50%, 5px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn-b-7ftifo1iyd {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.bg-sum[b-7ftifo1iyd] {
+    background-color: #0078d7 !important; 
+    color: white;
+}
+
+.bg-year[b-7ftifo1iyd] {
+    background-color: #d9534f !important; 
+    color: white;
+}
+
+.text-muted[b-7ftifo1iyd] {
+    color: #888 !important;
+    background-color: #f0f0f0;
+}
+.footer[b-7ftifo1iyd] {
+    background: #fff;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0; 
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+.pager[b-7ftifo1iyd] {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .pager button[b-7ftifo1iyd] {
+        border: 1px solid #dee2e6;
+        background: white;
+        color: #0091ff;
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+
+        .pager button i[b-7ftifo1iyd] {
+            font-size: 14px;
+        }
+
+        .pager button:hover:not(:disabled)[b-7ftifo1iyd] {
+            background: #0091ff;
+            color: white;
+            border-color: #0091ff;
+        }
+
+        .pager button:disabled[b-7ftifo1iyd] {
+            color: #adb5bd;
+            background: #f8f9fa;
+            cursor: not-allowed;
+            border-color: #ebebeb;
+        }
+
+.page-info[b-7ftifo1iyd] {
+    font-weight: 600;
+    margin: 0 12px;
+    font-size: 13px;
+    color: #495057;
+    background: #e9ecef;
+    padding: 4px 10px;
+    border-radius: 12px;
+}

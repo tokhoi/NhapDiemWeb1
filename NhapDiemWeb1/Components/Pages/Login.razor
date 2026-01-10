@@ -1,0 +1,69 @@
+﻿@page "/"
+@layout EmptyLayout
+@inject NavigationManager Nav
+
+<div class="login-page">
+    <div class="login-card">
+        <div class="brand-side">
+            <div class="content">
+                <i class="fa-solid fa-graduation-cap logo-large"></i>
+                <h2>TITKUL</h2>
+                <p>Nền tảng quản lý giáo dục thông minh</p>
+                <div class="features">
+                    <div><i class="fa-solid fa-pen"></i><br>Nhập liệu</div>
+                    <div><i class="fa-solid fa-rotate"></i><br>Đồng bộ</div>
+                    <div><i class="fa-solid fa-shield-halved"></i><br>Bảo mật</div>
+                </div>
+            </div>
+            <div class="bg-overlay"></div>
+        </div>
+
+        <div class="form-side">
+            <div class="form-header">
+                <div class="icon-lock"><i class="fa-solid fa-lock"></i></div>
+                <div>
+                    <h4>ĐĂNG NHẬP HỆ THỐNG</h4>
+                    <span class="sub-text">Dành cho Cán bộ Quản lý & Giáo viên</span>
+                </div>
+            </div>
+
+            <div class="form-body">
+                <div class="form-group">
+                    <label>TÀI KHOẢN CỦA BẠN</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" placeholder="Tên đăng nhập / Email" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>MẬT KHẨU</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fa-solid fa-key"></i></span>
+                        <input type="password" placeholder="Mật khẩu" />
+                    </div>
+                </div>
+
+                <div class="divider">THÔNG TIN ĐƠN VỊ</div>
+
+              @*   <select class="form-select"><option>Trung học phổ thông</option></select>
+                <select class="form-select"><option>-- Chọn Quận/Huyện --</option></select> *@
+                <select class="form-select fw-bold"><option>THPT SAO MAI</option></select>
+
+              @*   <div class="captcha-row">
+                    <input type="text" placeholder="Mã xác nhận" class="captcha-input" />
+                    <div class="captcha-code">A7x9B2</div>
+                    <button class="btn-refresh"><i class="fa-solid fa-rotate-right"></i></button>
+                </div> *@
+
+                <div class="remember-row">
+                    <label class="d-flex align-center"><input type="checkbox"> Ghi nhớ</label>
+                    <a href="#" class="forgot-pass">Quên mật khẩu?</a>
+                </div>
+
+                <button class="btn-submit" @onclick='() => Nav.NavigateTo("/dashboard")'>ĐĂNG NHẬP</button>
+                @* <button class="btn-vneid">Đăng nhập bằng tài khoản VNeID</button> *@
+            </div>
+        </div>
+    </div>
+</div>

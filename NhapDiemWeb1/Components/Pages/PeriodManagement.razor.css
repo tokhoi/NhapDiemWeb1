@@ -1,0 +1,444 @@
+﻿/* --- 1. LAYOUT CHUNG (Đồng bộ với Dashboard) --- */
+.dashboard-container {
+    padding: 20px 30px;
+    height: 100%;
+    overflow-y: auto;
+    background: #f4f6f9;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.icon-title {
+    width: 32px;
+    height: 32px;
+    background: #dc3545; /* Màu đỏ đặc trưng cho trang quản lý */
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.page-title h4 {
+    margin: 0;
+    font-weight: 700;
+    color: #444;
+    font-size: 18px;
+}
+
+.btn-refresh {
+    margin-left: auto;
+    background: #0091ff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+    .btn-refresh:hover {
+        background: #007acc;
+    }
+
+/* --- 2. TABLE & LIST --- */
+.chart-box {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    overflow: hidden; /* Bo góc cho table bên trong */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+    .table thead th {
+        background: #f8f9fa;
+        color: #444;
+        font-weight: 600;
+        text-align: left;
+        border-bottom: 2px solid #eee;
+        padding: 12px 15px;
+    }
+
+    .table tbody td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #f0f0f0;
+        vertical-align: middle;
+        color: #333;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8faff;
+    }
+
+    .table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+/* Text & Badges trong bảng */
+.text-muted {
+    color: #888 !important;
+    font-size: 0.9em;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.text-primary {
+    color: #0091ff !important;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    display: inline-block;
+}
+
+.bg-success {
+    background: #28a745;
+}
+
+.bg-danger {
+    background: #dc3545;
+}
+
+.bg-secondary {
+    background: #6c757d;
+}
+
+/* Action Buttons trong bảng */
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 6px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+    .btn-icon:hover {
+        background-color: #f1f3f5;
+    }
+
+/* --- 3. MODAL POPUP --- */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    background: white;
+    width: 550px;
+    max-width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    background: #0091ff;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .modal-header h5 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+    .close-btn:hover {
+        opacity: 1;
+    }
+
+.modal-body {
+    padding: 20px;
+    background: #fff;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* --- 4. FORM ELEMENTS --- */
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #555;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 13px;
+    color: #333;
+    transition: border-color 0.2s;
+    box-sizing: border-box; /* Quan trọng để không bị vỡ layout */
+}
+
+    .form-control:focus {
+        border-color: #0091ff;
+        box-shadow: 0 0 0 3px rgba(0, 145, 255, 0.1);
+    }
+
+/* Checkbox style */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.form-check-input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #0091ff;
+}
+
+.form-check-label {
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+    margin-bottom: 0 !important;
+}
+
+/* Modal Buttons */
+.btn-save {
+    background: #0091ff;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .btn-save:hover {
+        background: #007acc;
+    }
+
+.btn-cancel {
+    background: white;
+    border: 1px solid #ddd;
+    color: #666;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .btn-cancel:hover {
+        background: #f1f3f5;
+        color: #333;
+    }
+
+/* Helpers layout */
+.row {
+    display: flex;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+/* CSS Riêng cho Modal */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    overflow: hidden;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-header {
+    background: #0091ff;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .modal-header h5 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Inputs */
+.form-control {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+}
+
+    .form-control:focus {
+        border-color: #0091ff;
+        box-shadow: 0 0 0 2px #e6f7ff;
+    }
+
+/* Buttons */
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+}
+
+    .btn-icon:hover {
+        opacity: 0.7;
+    }
+
+.btn-cancel {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 6px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+}
+
+.bg-success {
+    background: #28a745;
+}
+
+.bg-danger {
+    background: #dc3545;
+}
+
+.bg-secondary {
+    background: #6c757d;
+}
