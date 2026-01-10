@@ -910,6 +910,51 @@
     .btn-vneid:hover[b-b7un0vqytm] {
         background: #f8f9fa;
     }
+
+/* --- SEARCHABLE DROPDOWN CSS --- */
+.searchable-select[b-b7un0vqytm] {
+    position: relative;
+    width: 100%;
+}
+
+    .searchable-select input.form-select[b-b7un0vqytm] {
+        background-color: white;
+        cursor: text;
+        padding-right: 30px;
+    }
+
+.dropdown-list[b-b7un0vqytm] {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 4px;
+}
+
+.dropdown-item[b-b7un0vqytm] {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #333;
+    transition: background 0.1s;
+}
+
+    .dropdown-item:hover[b-b7un0vqytm] {
+        background-color: #f0f2f5;
+        color: #0091ff;
+        font-weight: 600;
+    }
+
+    .dropdown-item.text-muted[b-b7un0vqytm] {
+        cursor: default;
+        font-style: italic;
+    }
 /* _content/NhapDiemWeb1/Components/Pages/PeriodManagement.razor.rz.scp.css */
 /* --- 1. LAYOUT CHUNG (Đồng bộ với Dashboard) --- */
 .dashboard-container[b-eyqoarh090] {

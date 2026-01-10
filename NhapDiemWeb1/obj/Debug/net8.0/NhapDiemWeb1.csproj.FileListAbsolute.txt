@@ -35,3 +35,4 @@ D:\STUDY\VS CSharp\Some Demo PAge\NhapDiemWeb1\NhapDiemWeb1\obj\Debug\net8.0\ref
 D:\STUDY\VS CSharp\Some Demo PAge\NhapDiemWeb1\NhapDiemWeb1\obj\Debug\net8.0\NhapDiemWeb1.pdb
 D:\STUDY\VS CSharp\Some Demo PAge\NhapDiemWeb1\NhapDiemWeb1\obj\Debug\net8.0\NhapDiemWeb1.genruntimeconfig.cache
 D:\STUDY\VS CSharp\Some Demo PAge\NhapDiemWeb1\NhapDiemWeb1\obj\Debug\net8.0\ref\NhapDiemWeb1.dll
+D:\STUDY\VS CSharp\Some Demo PAge\NhapDiemWeb1\NhapDiemWeb1\obj\Debug\net8.0\NhapDiemWeb1.sourcelink.json

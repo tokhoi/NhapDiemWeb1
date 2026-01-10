@@ -1,6 +1,8 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 @layout EmptyLayout
 @inject NavigationManager Nav
+
 
 <div class="login-page">
     <div class="login-card">
@@ -48,8 +50,35 @@
 
               @*   <select class="form-select"><option>Trung học phổ thông</option></select>
                 <select class="form-select"><option>-- Chọn Quận/Huyện --</option></select> *@
-                <select class="form-select fw-bold"><option>THPT SAO MAI</option></select>
+                <div class="searchable-select">
+                    <input type="text"
+                           class="form-select fw-bold"
+                           placeholder="-- Nhập tên trường để tìm --"
+                           @bind="searchText"
+                           @bind:event="oninput"
+                           @onfocus="ShowDropdown"
+                           @onblur="HideDropdownDelay" />
 
+
+                    @if (isDropdownOpen)
+                    {
+                        <div class="dropdown-list shadow">
+                            @if (filteredSchools.Count == 0)
+                            {
+                                <div class="dropdown-item text-muted">Không tìm thấy kết quả</div>
+                            }
+                            else
+                            {
+                                @foreach (var school in filteredSchools)
+                                {
+                                    <div class="dropdown-item" @onmousedown="() => SelectSchool(school)">
+                                        @school
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
               @*   <div class="captcha-row">
                     <input type="text" placeholder="Mã xác nhận" class="captcha-input" />
                     <div class="captcha-code">A7x9B2</div>
@@ -67,3 +96,60 @@
         </div>
     </div>
 </div>
+@code {
+    // --- LOGIC SEARCHABLE DROPDOWN ---
+    bool isDropdownOpen = false;
+    private string _searchText = "THPT SAO MAI";
+
+    public string searchText
+    {
+        get => _searchText;
+        set
+        {
+            _searchText = value;
+            if (string.IsNullOrWhiteSpace(_searchText))
+                filteredSchools = allSchools;
+            else
+                filteredSchools = allSchools.Where(s => s.Contains(_searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+    }
+
+    List<string> allSchools = new List<string>
+    {
+        "THPT SAO MAI",
+        "THPT A",
+        "THPT B",
+        "THPT C"
+    };
+
+    List<string> filteredSchools = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+            searchText = "THPT SAO MAI";
+
+        filteredSchools = allSchools;
+    }
+
+    void ShowDropdown()
+    {
+        isDropdownOpen = true;
+        if (string.IsNullOrWhiteSpace(searchText))
+            filteredSchools = allSchools;
+        else
+            filteredSchools = allSchools.Where(s => s.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+    }
+
+    async Task HideDropdownDelay()
+    {
+        await Task.Delay(200);
+        isDropdownOpen = false;
+    }
+
+    void SelectSchool(string school)
+    {
+        searchText = school;
+        isDropdownOpen = false;
+    }
+}

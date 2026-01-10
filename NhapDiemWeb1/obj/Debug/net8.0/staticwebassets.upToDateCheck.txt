@@ -1,6 +1,6 @@
-wwwroot\app.css
+wwwroot\js\chart-helper.js
 wwwroot\bootstrap\bootstrap.min.css
 wwwroot\bootstrap\bootstrap.min.css.map
 wwwroot\favicon.png
 wwwroot\js\app-utils.js
-wwwroot\js\chart-helper.js
+wwwroot\app.css

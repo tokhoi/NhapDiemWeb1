@@ -216,3 +216,48 @@
     .btn-vneid:hover {
         background: #f8f9fa;
     }
+
+/* --- SEARCHABLE DROPDOWN CSS --- */
+.searchable-select {
+    position: relative;
+    width: 100%;
+}
+
+    .searchable-select input.form-select {
+        background-color: white;
+        cursor: text;
+        padding-right: 30px;
+    }
+
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 4px;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #333;
+    transition: background 0.1s;
+}
+
+    .dropdown-item:hover {
+        background-color: #f0f2f5;
+        color: #0091ff;
+        font-weight: 600;
+    }
+
+    .dropdown-item.text-muted {
+        cursor: default;
+        font-style: italic;
+    }

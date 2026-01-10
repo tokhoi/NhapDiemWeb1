@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\pointinput.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\pointinput.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\periodmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\periodmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\login.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\login.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\periodmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\periodmanagement.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\pointinput.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\pointinput.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\gradelockmanager.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\gradelockmanager.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\pointinput.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\pointinput.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -31,20 +39,12 @@
       "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\pointinput.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\pointinput.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\gradelockmanager.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\gradelockmanager.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\periodmanagement.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\periodmanagement.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\pages\\login.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|solutionrelative:nhapdiemweb1\\components\\pages\\login.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EBDF97C2-FF73-434F-9B8A-87BC65C0CCDB}|NhapDiemWeb1\\NhapDiemWeb1.csproj|d:\\study\\vs csharp\\some demo page\\nhapdiemweb1\\nhapdiemweb1\\components\\layout\\mainlayout.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
@@ -113,20 +113,71 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Routes.razor",
-              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Routes.razor",
-              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Routes.razor",
-              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Routes.razor",
-              "RelativeToolTip": "NhapDiemWeb1\\Components\\Routes.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAnAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\_Imports.razor",
+              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\_Imports.razor",
+              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\_Imports.razor",
+              "RelativeToolTip": "NhapDiemWeb1\\Components\\_Imports.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-10T04:57:46.132Z",
+              "WhenOpened": "2026-01-06T09:51:33.886Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GradeLockManager.razor",
+              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor",
+              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor",
+              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor",
+              "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-10T03:36:46.08Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Login.razor",
+              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\Login.razor",
+              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\Login.razor",
+              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\Login.razor",
+              "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\Login.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-06T09:41:46.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PointInput.razor",
+              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\PointInput.razor",
+              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\PointInput.razor",
+              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\PointInput.razor",
+              "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\PointInput.razor",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADIAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-06T09:47:34.54Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PointInput.razor.css",
+              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\PointInput.razor.css",
+              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\PointInput.razor.css",
+              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\PointInput.razor.css",
+              "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\PointInput.razor.css",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAawHMAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-07T02:23:14.651Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "PeriodManagement.razor",
               "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\PeriodManagement.razor",
               "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\PeriodManagement.razor",
@@ -139,7 +190,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
+              "Title": "Login.razor.css",
+              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\Login.razor.css",
+              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\Login.razor.css",
+              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\Login.razor.css",
+              "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\Login.razor.css",
+              "ViewState": "AgIAAPoAAAAAAAAAAAAgwO8AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-07T02:21:48.044Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "App.razor",
               "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\App.razor",
               "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\App.razor",
@@ -147,90 +211,23 @@
               "RelativeToolTip": "NhapDiemWeb1\\Components\\App.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-07T02:32:41.391Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T02:32:41.391Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "_Imports.razor",
-              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\_Imports.razor",
-              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\_Imports.razor",
-              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\_Imports.razor",
-              "RelativeToolTip": "NhapDiemWeb1\\Components\\_Imports.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
+              "Title": "Routes.razor",
+              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Routes.razor",
+              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Routes.razor",
+              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Routes.razor",
+              "RelativeToolTip": "NhapDiemWeb1\\Components\\Routes.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-06T09:51:33.886Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-10T04:57:46.132Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GradeLockManager.razor",
-              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor",
-              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor",
-              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor",
-              "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-10T03:36:46.08Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Login.razor",
-              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\Login.razor",
-              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\Login.razor",
-              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\Login.razor",
-              "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\Login.razor",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAD8AAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-06T09:41:46.437Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PointInput.razor",
-              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\PointInput.razor",
-              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\PointInput.razor",
-              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\PointInput.razor",
-              "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\PointInput.razor",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAE0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-06T09:47:34.54Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PointInput.razor.css",
-              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\PointInput.razor.css",
-              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\PointInput.razor.css",
-              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\PointInput.razor.css",
-              "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\PointInput.razor.css",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAawHQAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-07T02:23:14.651Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Login.razor.css",
-              "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\Login.razor.css",
-              "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\Login.razor.css",
-              "ToolTip": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\Login.razor.css",
-              "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\Login.razor.css",
-              "ViewState": "AgIAALgAAAAAAAAAAAAkwNoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-07T02:21:48.044Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "GradeLockManager.razor.css",
               "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor.css",
               "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor.css",
@@ -238,12 +235,11 @@
               "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\GradeLockManager.razor.css",
               "ViewState": "AgIAABIAAAAAAAAAAAAUwBYAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-10T03:37:35.692Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-10T03:37:35.692Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "PeriodManagement.razor.css",
               "DocumentMoniker": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\Components\\Pages\\PeriodManagement.razor.css",
               "RelativeDocumentMoniker": "NhapDiemWeb1\\Components\\Pages\\PeriodManagement.razor.css",
@@ -251,8 +247,7 @@
               "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\PeriodManagement.razor.css",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-08T03:17:08.828Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-08T03:17:08.828Z"
             },
             {
               "$type": "Document",
@@ -264,8 +259,7 @@
               "RelativeToolTip": "NhapDiemWeb1\\wwwroot\\app.css",
               "ViewState": "AgIAABIAAAAAAAAAAAAAAB8AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-06T09:48:08.017Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-06T09:48:08.017Z"
             },
             {
               "$type": "Document",
@@ -277,8 +271,7 @@
               "RelativeToolTip": "NhapDiemWeb1\\Components\\Layout\\MainLayout.razor.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-07T02:21:04.45Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T02:21:04.45Z"
             },
             {
               "$type": "Document",
@@ -290,8 +283,7 @@
               "RelativeToolTip": "NhapDiemWeb1\\wwwroot\\js\\app-utils.js",
               "ViewState": "AgIAABsAAAAAAAAAAAAAAAEAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-01-07T03:33:13.807Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T03:33:13.807Z"
             },
             {
               "$type": "Document",
@@ -339,8 +331,7 @@
               "RelativeToolTip": "NhapDiemWeb1\\Components\\Pages\\Dashboard.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-06T09:42:11.024Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-06T09:42:11.024Z"
             },
             {
               "$type": "Document",
@@ -376,8 +367,7 @@
               "RelativeToolTip": "NhapDiemWeb1\\wwwroot\\js\\chart-helper.js",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABcAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-01-07T02:34:05.392Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-07T02:34:05.392Z"
             },
             {
               "$type": "Document",
@@ -398,8 +388,7 @@
               "RelativeToolTip": "NhapDiemWeb1\\Models\\General.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAqwCoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T10:01:25.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-06T10:01:25.394Z"
             }
           ]
         }
