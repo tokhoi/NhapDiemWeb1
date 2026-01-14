@@ -1,0 +1,574 @@
+﻿@page "/quan-ly-hoc-sinh"
+@rendermode InteractiveServer
+
+<div class="student-page-container">
+    @* --- SIDEBAR TRÁI --- *@
+    <div class="sidebar-box">
+        <div class="sidebar-header">
+            <i class="fa-solid fa-layer-group"></i> CẤU TRÚC LỚP
+        </div>
+        <div class="sidebar-content">
+            @foreach (var g in grades)
+            {
+                <div class="grade-group">
+                    <div class="grade-row @(g.IsExpanded ? "expanded" : "")" @onclick="() => ToggleGrade(g)">
+                        <span class="fw-bold">@g.Name</span>
+                        <div class="grade-meta">
+                            <span class="badge-count">@g.Classes.Count lớp</span>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                    </div>
+
+                    @if (g.IsExpanded)
+                    {
+                        <div class="class-list">
+                            @foreach (var c in g.Classes)
+                            {
+                                <div class="class-row @(selectedClass?.Id == c.Id ? "active" : "")" @onclick="() => SelectClass(c)">
+                                    <div class="class-icon"><i class="fa-solid fa-users"></i></div>
+                                    <div class="class-info">
+                                        <div class="class-name">@c.Name</div>
+                                        <div class="class-sub">Sĩ số: @c.StudentCount</div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    @* --- MAIN CONTENT --- *@
+    <div class="main-content-box">
+        @if (selectedClass == null)
+        {
+            <div class="empty-state">
+                <i class="fa-solid fa-school-circle-exclamation icon-empty"></i>
+                <h5>Chưa chọn lớp học</h5>
+                <p>Vui lòng chọn một lớp từ danh sách bên trái để xem dữ liệu.</p>
+            </div>
+        }
+        else
+        {
+            <div class="content-head">
+                <div class="head-info">
+                    <h4>Danh sách học sinh - @selectedClass.Name</h4>
+                    <span><i class="fa-solid fa-folder-tree"></i> Khối @selectedClass.GradeName &nbsp;|&nbsp; <i class="fa-solid fa-user-graduate"></i> GVCN: @selectedClass.HomeroomTeacher</span>
+                </div>
+                <div class="head-actions">
+                    <div class="search-wrap">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Tìm kiếm tên, mã HS..." @bind="searchText" @bind:event="oninput" @onkeyup="ResetPage" />
+                    </div>
+                    <button class="btn-custom btn-green"><i class="fa-solid fa-file-excel"></i> Xuất Excel</button>
+                    @* <button class="btn-custom btn-blue"><i class="fa-solid fa-user-plus"></i> Thêm mới</button> *@
+                </div>
+            </div>
+
+            <div class="content-table">
+                <table class="std-table">
+                    <thead>
+                        <tr>
+                            <th width="50" class="text-center">#</th>
+                            <th width="100">Mã HS</th>
+                            <th>Họ và tên</th>
+                            <th width="120">Ngày sinh</th>
+                            <th width="100">Giới tính</th>
+                            <th width="120">SĐT</th>
+                            <th width="120" class="text-center">Trạng thái</th>
+                            <th width="100" class="text-end">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (PagedStudents.Any())
+                        {
+                            int index = (currentPage - 1) * pageSize + 1;
+                            foreach (var s in PagedStudents)
+                            {
+                                <tr>
+                                    <td class="text-center text-muted">@(index++)</td>
+                                    <td><span class="code-tag">@s.Code</span></td>
+                                    <td class="fw-bold" style="color:#333">@s.Name</td>
+                                    <td>@s.Dob.ToString("dd/MM/yyyy")</td>
+                                    <td>@s.Gender</td>
+                                    <td>@s.Phone</td>
+                                    <td class="text-center"><span class="status-tag active">@s.Status</span></td>
+                                    <td class="text-end">
+                                        <button class="btn-icon text-blue"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="btn-icon text-red"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="8" class="text-center py-4 text-muted">Không tìm thấy học sinh nào.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content-foot">
+                <span>Hiển thị @((currentPage - 1) * pageSize + 1) - @Math.Min(currentPage * pageSize, FilteredStudents.Count) trên @FilteredStudents.Count học sinh</span>
+                <div class="pagination-wrap">
+                    <button @onclick="() => ChangePage(currentPage - 1)" disabled="@(currentPage == 1)"><i class="fa-solid fa-chevron-left"></i></button>
+                    @for (int i = 1; i <= TotalPages; i++)
+                    {
+                        var p = i;
+                        if (i == 1 || i == TotalPages || (i >= currentPage - 1 && i <= currentPage + 1))
+                        {
+                            <button class="@(currentPage == p ? "active" : "")" @onclick="() => ChangePage(p)">@p</button>
+                        }
+                        else if (i == currentPage - 2 || i == currentPage + 2)
+                        {
+                            <span class="dots">...</span>
+                        }
+                    }
+                    <button @onclick="() => ChangePage(currentPage + 1)" disabled="@(currentPage == TotalPages)"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    class Grade { public int Id { get; set; } public string Name { get; set; } = ""; public bool IsExpanded { get; set; } = true; public List<Class> Classes { get; set; } = new(); }
+    class Class { public int Id { get; set; } public string Name { get; set; } = ""; public string GradeName { get; set; } = ""; public int StudentCount { get; set; } public string HomeroomTeacher { get; set; } = ""; }
+    class Student { public string Code { get; set; } = ""; public string Name { get; set; } = ""; public DateTime Dob { get; set; } public string Gender { get; set; } = ""; public string Phone { get; set; } = ""; public string Status { get; set; } = "Đang học"; }
+
+    List<Grade> grades = new();
+    List<Student> currentStudents = new();
+    Class? selectedClass;
+    string searchText = "";
+    int currentPage = 1;
+    int pageSize = 15;
+
+    List<Student> FilteredStudents => currentStudents.Where(s => string.IsNullOrEmpty(searchText) || s.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase) || s.Code.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+    List<Student> PagedStudents => FilteredStudents.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+    int TotalPages => (int)Math.Ceiling((double)FilteredStudents.Count / pageSize);
+
+    protected override void OnInitialized()
+    {
+        var k10 = new Grade { Id = 10, Name = "KHỐI 10" };
+        k10.Classes.Add(new Class { Id = 1, Name = "10A1", GradeName = "10", StudentCount = 45, HomeroomTeacher = "Nguyễn Văn A" });
+        k10.Classes.Add(new Class { Id = 2, Name = "10A2", GradeName = "10", StudentCount = 42, HomeroomTeacher = "Trần Thị B" });
+        var k11 = new Grade { Id = 11, Name = "KHỐI 11", IsExpanded = false };
+        k11.Classes.Add(new Class { Id = 3, Name = "11B1", GradeName = "11", StudentCount = 40, HomeroomTeacher = "Lê Văn C" });
+        grades.Add(k10); grades.Add(k11); grades.Add(new Grade { Id = 12, Name = "KHỐI 12", IsExpanded = false });
+        SelectClass(k10.Classes[0]);
+    }
+
+    void ToggleGrade(Grade g) => g.IsExpanded = !g.IsExpanded;
+    void SelectClass(Class c) { selectedClass = c; searchText = ""; currentPage = 1; LoadStudents(c.Id); }
+    void ResetPage() => currentPage = 1;
+    void ChangePage(int p) { if (p >= 1 && p <= TotalPages) currentPage = p; }
+
+    void LoadStudents(int classId)
+    {
+        currentStudents.Clear();
+        int count = selectedClass?.StudentCount ?? 45;
+        if (count < 50) count = 50;
+        for (int i = 1; i <= count; i++)
+        {
+            currentStudents.Add(new Student { Code = $"HS{classId}{i:000}", Name = $"Học sinh mẫu {i} ({selectedClass?.Name})", Dob = DateTime.Now.AddYears(-16), Gender = i % 2 == 0 ? "Nữ" : "Nam", Phone = "0988777666" });
+        }
+    }
+}
+
+@* <style>
+    /* CSS ISOLATION SIMULATED */
+    .student-page-container {
+        display: flex;
+        height: calc(100vh - 80px);
+        background: #f4f6f9;
+        gap: 20px;
+        padding: 20px;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar-box {
+        width: 280px;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .sidebar-header {
+        padding: 15px;
+        font-weight: 700;
+        color: #1b6ec2;
+        border-bottom: 1px solid #f0f0f0;
+        background: #fcfdfe;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .sidebar-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+    }
+
+    .grade-row {
+        padding: 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #555;
+        font-weight: 600;
+        margin-bottom: 2px;
+        transition: 0.2s;
+    }
+
+        .grade-row:hover {
+            background: #f8f9fa;
+        }
+
+        .grade-row.expanded {
+            color: #1b6ec2;
+            background: #eef7ff;
+        }
+
+    .grade-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .badge-count {
+        font-size: 11px;
+        background: white;
+        border: 1px solid #ddd;
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: #666;
+        font-weight: normal;
+    }
+
+    .arrow-icon {
+        font-size: 10px;
+        transition: 0.2s;
+    }
+
+    .grade-row.expanded .arrow-icon {
+        transform: rotate(180deg);
+    }
+
+    .class-list {
+        padding-left: 12px;
+        margin-bottom: 5px;
+        position: relative;
+    }
+
+        .class-list::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 15px;
+            width: 2px;
+            background: #eef2f6;
+        }
+
+    .class-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 10px;
+        margin-left: 18px;
+        margin-bottom: 2px;
+        border-radius: 6px;
+        cursor: pointer;
+        background: white;
+        border: 1px solid transparent;
+        transition: 0.2s;
+    }
+
+        .class-row:hover {
+            background: #f9f9f9;
+            transform: translateX(3px);
+        }
+
+        .class-row.active {
+            background: #f0f7ff;
+            border-color: #b3d7ff;
+            border-left: 4px solid #1b6ec2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+    .class-icon {
+        width: 30px;
+        height: 30px;
+        background: #f1f3f5;
+        color: #666;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    .class-row.active .class-icon {
+        background: #1b6ec2;
+        color: white;
+    }
+
+    .class-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .class-sub {
+        font-size: 11px;
+        color: #888;
+    }
+
+    /* Main Content */
+    .main-content-box {
+        flex: 1;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .empty-state {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+    }
+
+    .icon-empty {
+        font-size: 60px;
+        margin-bottom: 20px;
+        opacity: 0.3;
+    }
+
+    .content-head {
+        padding: 15px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        flex-shrink: 0;
+    }
+
+    .head-info h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .head-info span {
+        font-size: 13px;
+        color: #666;
+        display: block;
+        margin-top: 4px;
+    }
+
+    .head-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .search-wrap {
+        position: relative;
+    }
+
+        .search-wrap i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .search-wrap input {
+            padding: 8px 10px 8px 30px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            width: 220px;
+            outline: none;
+        }
+
+            .search-wrap input:focus {
+                border-color: #1b6ec2;
+            }
+
+    .btn-custom {
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid transparent;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .btn-green {
+        background: #2e845c;
+        border-color: #ddd;
+        color: #fff;
+    }
+
+        .btn-green:hover {
+            background: #31bd7c;
+        }
+
+    .btn-blue {
+        background: #1b6ec2;
+        color: white;
+    }
+
+        .btn-blue:hover {
+            background: #0d5197;
+        }
+
+    /* Table */
+    .content-table {
+        flex: 1;
+        overflow: auto;
+    }
+
+    .std-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+        .std-table th {
+            background: #f8f9fa;
+            color: #555;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .std-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #f5f5f5;
+            vertical-align: middle;
+            color: #444;
+        }
+
+        .std-table tr:hover {
+            background: #fcfcfc;
+        }
+
+    .code-tag {
+        font-family: monospace;
+        color: #1b6ec2;
+        background: #eef7ff;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+    }
+
+    .status-tag {
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-weight: 600;
+        background: #e6fffa;
+        color: #00a86b;
+    }
+
+    .btn-icon {
+        width: 28px;
+        height: 28px;
+        border: none;
+        background: transparent;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #666;
+        font-size: 14px;
+    }
+
+        .btn-icon:hover {
+            background: #eee;
+        }
+
+    .text-blue {
+        color: #1b6ec2;
+    }
+
+    .text-red {
+        color: #dc3545;
+    }
+
+    /* Pagination */
+    .content-foot {
+        padding: 10px 20px;
+        border-top: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        color: #666;
+        background: #fcfdfe;
+        flex-shrink: 0;
+    }
+
+    .pagination-wrap {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+    }
+
+        .pagination-wrap button {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            transition: 0.2s;
+        }
+
+            .pagination-wrap button.active {
+                background: #1b6ec2;
+                color: white;
+                border-color: #1b6ec2;
+            }
+
+            .pagination-wrap button:hover:not(.active):not(:disabled) {
+                background: #f0f0f0;
+            }
+
+            .pagination-wrap button:disabled {
+                opacity: 0.5;
+                cursor: default;
+            }
+
+    .dots {
+        padding: 0 5px;
+    }
+</style> *@

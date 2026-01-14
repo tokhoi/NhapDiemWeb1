@@ -296,7 +296,7 @@
     width: auto;
 }
 
-/* STICKY LEFT COLUMNS */
+/* --- STICKY LEFT COLUMNS --- */
 .sticky-col[b-7ftifo1iyd] {
     position: sticky;
     background: white;
@@ -331,6 +331,45 @@
 
 .col-name.z-corner[b-7ftifo1iyd] {
     border-right: 2px solid #4da3e2 !important;
+}
+
+/* --- RESPONSIVE: Chỉ giữ col-name sticky trên mobile --- */
+@media (max-width: 992px) {
+    .col-stt.sticky-col[b-7ftifo1iyd],
+    .col-view.sticky-col[b-7ftifo1iyd] {
+        position: static;
+    }
+
+    .col-code.sticky-col[b-7ftifo1iyd],
+    .col-name.sticky-col[b-7ftifo1iyd] {
+        position: sticky;
+        left: 0; /* Cả hai aligned left */
+        z-index: 5;
+    }
+
+    .col-code.z-corner[b-7ftifo1iyd],
+    .col-name.z-corner[b-7ftifo1iyd] {
+        position: sticky;
+        z-index: 20 !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Mobile: Có thể ẩn cột STT, Xem nếu muốn tiết kiệm không gian */
+    .col-stt[b-7ftifo1iyd],
+    .col-view[b-7ftifo1iyd] {
+        display: none;
+    }
+
+    /* Điều chỉnh lại left cho col-name nếu ẩn STT, Xem */
+    .col-name.sticky-col[b-7ftifo1iyd] {
+        left: 0;
+    }
+
+    /* Hoặc nếu không ẩn, chỉ điều chỉnh left */
+    /* .col-name.sticky-col {
+        left: 0;
+    } */
 }
 
 /* BODY STYLES */

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NhapDiemWeb1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+64a404532a9519c14b824defb7f618ab224f01d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("NhapDiemWeb1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NhapDiemWeb1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

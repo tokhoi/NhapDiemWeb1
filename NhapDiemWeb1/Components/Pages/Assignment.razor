@@ -1,0 +1,521 @@
+﻿@page "/phan-cong-chuyen-mon"
+@rendermode InteractiveServer
+
+<div class="assign-wrap" style="@AssignWrapStyle">
+    <div class="a-header">
+        <div class="a-title-grp">
+            <div class="a-icon"><i class="fa-solid fa-users-gear"></i></div>
+            <div>
+                <h4>PHÂN CÔNG CHUYÊN MÔN</h4>
+                <span class="sub">Quản lý phân công chủ nhiệm & giảng dạy</span>
+            </div>
+        </div>
+        <div class="a-actions">
+            <div class="year-box">
+                <span>Năm học:</span>
+                <select><option>2025-2026</option><option>2024-2025</option></select>
+            </div>
+            <button class="a-btn save"><i class="fa-solid fa-floppy-disk"></i> Lưu thay đổi</button>
+        </div>
+    </div>
+
+    <div class="a-tabs">
+        <div class="tab @(activeTab == 1 ? "active" : "")" @onclick="() => ChangeTab(1)">
+            <i class="fa-solid fa-user-tie"></i> Phân công Chủ nhiệm
+        </div>
+        <div class="tab @(activeTab == 2 ? "active" : "")" @onclick="() => ChangeTab(2)">
+            <i class="fa-solid fa-chalkboard-user"></i> Phân công Giảng dạy
+        </div>
+    </div>
+
+    <div class="a-content">
+        @if (activeTab == 1)
+        {
+            <div class="a-toolbar">
+                <div class="a-filter">
+                    <label>Lọc Khối:</label>
+                    <select class="a-input" @onchange="FilterByGrade">
+                        <option value="">Tất cả</option>
+                        <option value="10">Khối 10</option>
+                        <option value="11">Khối 11</option>
+                        <option value="12">Khối 12</option>
+                    </select>
+                </div>
+                <div class="ms-auto text-green"><i class="fa-solid fa-check-circle"></i> Đã phân công: <strong>@AssignedCount/@classes.Count</strong> lớp</div>
+            </div>
+            <div class="a-table-scroll">
+                <table class="a-table">
+                    <thead><tr><th class="text-center">#</th><th class="text-center">Khối</th><th>Lớp</th><th class="text-center">Sĩ số</th><th>Giáo viên chủ nhiệm</th><th>Ghi chú</th></tr></thead>
+                    <tbody>
+                        @{
+                            int idx = (currentPage - 1) * pageSize + 1;
+                        }
+                        @foreach (var c in PagedClasses)
+                        {
+                            <tr>
+                                <td class="text-center text-muted">@(idx++)</td>
+                                <td class="text-center text-muted fw-bold">@c.Grade</td>
+                                <td><span class="a-tag">@c.Name</span></td>
+                                <td class="text-center">@c.Count</td>
+                                <td>
+                                    <div class="seamless-wrap @(string.IsNullOrEmpty(c.TeacherId) ? "empty" : "")">
+                                        <select @bind="c.TeacherId">
+                                            <option value="">-- Chưa phân công --</option>
+                                            @foreach (var t in teacherList)
+                                            {
+                                                <option value="@t.Id">@t.Name</option>
+                                            }
+                                        </select>
+                                        <i class="fa-solid fa-chevron-down a-arrow"></i>
+                                    </div>
+                                </td>
+                                <td><input class="seamless-inp" placeholder="Ghi chú..." @bind="c.Note" /></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="a-foot">
+                <span>Trang @currentPage / @TotalPages</span>
+                <div class="a-paging">
+                    <button @onclick="() => ChangePage(currentPage - 1)" disabled="@(currentPage == 1)"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button @onclick="() => ChangePage(currentPage + 1)" disabled="@(currentPage == TotalPages)"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="a-toolbar">
+                <div class="a-filter">
+                    <label>Lớp học:</label>
+                    <select class="a-input highlight" @bind="selectedClassId">
+                        @foreach (var c in classes)
+                        {
+                            <option value="@c.Id">@c.Name</option>
+                        }
+                    </select>
+                </div>
+                <button class="a-btn outline ms-auto"><i class="fa-solid fa-copy"></i> Sao chép</button>
+            </div>
+            <div class="a-table-scroll">
+                <table class="a-table">
+                    <thead><tr><th class="text-center">#</th><th>Môn học</th><th class="text-center">Số tiết</th><th>Giáo viên</th><th class="text-center">Trạng thái</th></tr></thead>
+                    <tbody>
+                        @{
+                            int idx2 = 1;
+                        }
+                        @foreach (var s in subjects)
+                        {
+                            <tr>
+                                <td class="text-center text-muted">@(idx2++)</td>
+                                <td class="fw-bold" style="color:#1b6ec2">@s.Name</td>
+                                <td class="text-center"><span class="a-badge">@s.PeriodCount</span></td>
+                                <td>
+                                    <div class="seamless-wrap @(string.IsNullOrEmpty(s.AssignedTeacherId) ? "empty" : "")">
+                                        <select @bind="s.AssignedTeacherId">
+                                            <option value="">-- Chọn GV --</option>
+                                            @foreach (var t in teacherList)
+                                            {
+                                                <option value="@t.Id">@t.Name</option>
+                                            }
+                                        </select>
+                                        <i class="fa-solid fa-chevron-down a-arrow"></i>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    @if (!string.IsNullOrEmpty(s.AssignedTeacherId))
+                                    {
+                                        <i class="fa-solid fa-circle-check text-green"></i>
+                                    }
+                                    else
+                                    {
+
+                                        <i class="fa-solid fa-circle-exclamation text-orange"></i>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    int activeTab = 1;
+    string filterGrade = "";
+    string selectedClassId = "1";
+    int currentPage = 1; int pageSize = 10;
+
+    class ClassData { public string Id { get; set; } = ""; public string Grade { get; set; } = ""; public string Name { get; set; } = ""; public int Count { get; set; } public string TeacherId { get; set; } = ""; public string Note { get; set; } = ""; }
+    class SubjectData { public int Id { get; set; } public string Name { get; set; } = ""; public int PeriodCount { get; set; } public string AssignedTeacherId { get; set; } = ""; }
+    class Teacher { public string Id { get; set; } = ""; public string Name { get; set; } = ""; }
+
+    List<Teacher> teacherList = new() { new Teacher { Id = "GV01", Name = "Nguyễn Thúy Hằng" }, new Teacher { Id = "GV02", Name = "Trần Minh Tuấn" } };
+    List<ClassData> classes = new();
+    List<SubjectData> subjects = new();
+
+    List<ClassData> FilteredClasses => classes.Where(c => string.IsNullOrEmpty(filterGrade) || c.Grade == filterGrade).ToList();
+    List<ClassData> PagedClasses => FilteredClasses.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+    int TotalPages => (int)Math.Ceiling((double)FilteredClasses.Count / pageSize);
+    int AssignedCount => classes.Count(c => !string.IsNullOrEmpty(c.TeacherId));
+
+    protected override void OnInitialized()
+    {
+        for (int i = 1; i <= 30; i++) classes.Add(new ClassData { Id = i.ToString(), Grade = (i % 3 + 10).ToString(), Name = $"1{i % 3}A{i}", Count = 45 });
+        string[] subs = { "Toán", "Lý", "Hóa", "Văn", "Anh", "Sử", "Địa" };
+        for (int i = 0; i < subs.Length; i++) subjects.Add(new SubjectData { Id = i + 1, Name = subs[i], PeriodCount = 3 });
+    }
+
+    void ChangeTab(int tab) { activeTab = tab; currentPage = 1; }
+    void FilterByGrade(ChangeEventArgs e) { filterGrade = e.Value?.ToString() ?? ""; currentPage = 1; }
+    void ChangePage(int p) { if (p >= 1 && p <= TotalPages) currentPage = p; }
+
+    string AssignWrapStyle
+    {
+        get
+        {            
+            if (activeTab == 2)
+                return "height: calc(100vh - 200px);";
+            else
+                return "height: calc(100vh - 70px);";
+        }
+    }
+
+
+}
+
+@* <style>
+    :root {
+        --purple: #6f42c1;
+        --bg: #f4f6f9;
+    }
+
+    .assign-wrap {
+        padding: 20px 30px;
+        height: calc(100vh - 70px);
+        background: #f4f6f9;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+    .a-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-shrink: 0;
+    }
+
+    .a-title-grp {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .a-icon {
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6f42c1;
+        font-size: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .a-title-grp h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .a-title-grp .sub {
+        font-size: 12px;
+        color: #888;
+    }
+
+    .a-actions {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .year-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        font-size: 13px;
+        font-weight: 600;
+        color: #555;
+    }
+
+        .year-box select {
+            border: none;
+            outline: none;
+            font-weight: 700;
+            color: #6f42c1;
+            cursor: pointer;
+            background: transparent;
+        }
+
+    .a-btn {
+        padding: 8px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        font-size: 13px;
+    }
+
+        .a-btn.save {
+            background: #6f42c1;
+            color: white;
+            box-shadow: 0 3px 8px rgba(111, 66, 193, 0.2);
+        }
+
+        .a-btn.outline {
+            background: white;
+            border: 1px solid #ddd;
+            color: #555;
+        }
+
+    .a-tabs {
+        display: flex;
+        gap: 5px;
+        border-bottom: 1px solid #ddd;
+        flex-shrink: 0;
+    }
+
+    .tab {
+        padding: 10px 25px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        color: #666;
+        border-bottom: 3px solid transparent;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+        .tab.active {
+            color: #6f42c1;
+            border-bottom-color: #6f42c1;
+            background: white;
+            border-radius: 6px 6px 0 0;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            position: relative;
+            top: 1px;
+        }
+
+    .a-content {
+        flex: 1;
+        background: white;
+        border: 1px solid #ddd;
+        border-top: none;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .a-toolbar {
+        padding: 10px 20px;
+        border-bottom: 1px dashed #eee;
+        background: #fcfcfc;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-shrink: 0;
+    }
+
+    .a-filter {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .a-input {
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        font-size: 13px;
+        min-width: 150px;
+    }
+
+        .a-input.highlight {
+            border-color: #6f42c1;
+            color: #6f42c1;
+            font-weight: 700;
+            background: #fbf8ff;
+        }
+
+    .a-table-scroll {
+        flex: 1;
+        overflow: auto;
+    }
+
+    .a-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+        .a-table th {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            font-weight: 600;
+            color: #666;
+            z-index: 5;
+        }
+
+        .a-table td {
+            padding: 8px 15px;
+            border-bottom: 1px solid #f5f5f5;
+            vertical-align: middle;
+            color: #333;
+        }
+
+    .a-tag {
+        background: #eef2ff;
+        color: #4f46e5;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-family: monospace;
+    }
+
+    .a-badge {
+        background: #eee;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 11px;
+    }
+
+    .seamless-wrap {
+        position: relative;
+        width: 100%;
+    }
+
+        .seamless-wrap select {
+            width: 100%;
+            padding: 6px 25px 6px 10px;
+            border: 1px solid transparent;
+            background: transparent;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .seamless-wrap .a-arrow {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+            color: #ccc;
+            pointer-events: none;
+        }
+
+        .seamless-wrap:hover select {
+            border-color: #ddd;
+            background: white;
+        }
+
+        .seamless-wrap.empty select {
+            color: #999;
+            font-style: italic;
+        }
+
+    .seamless-inp {
+        width: 100%;
+        padding: 6px 10px;
+        border: 1px solid transparent;
+        background: transparent;
+        outline: none;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+
+        .seamless-inp:hover {
+            border-color: #ddd;
+            background: white;
+        }
+
+    .a-foot {
+        padding: 8px 20px;
+        border-top: 1px solid #eee;
+        background: #fcfcfc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: #666;
+        flex-shrink: 0;
+    }
+
+    .a-paging {
+        display: flex;
+        gap: 5px;
+    }
+
+        .a-paging button {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+            .a-paging button:hover:not(:disabled) {
+                background: #eee;
+            }
+
+    .text-green {
+        color: #28a745;
+    }
+
+    .text-orange {
+        color: #fd7e14;
+    }
+
+    .ms-auto {
+        margin-left: auto;
+    }
+</style> *@

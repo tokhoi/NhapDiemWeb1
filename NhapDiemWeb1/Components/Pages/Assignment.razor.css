@@ -1,0 +1,479 @@
+﻿:root {
+    --purple: #6f42c1;
+    --bg: #f4f6f9;
+}
+
+.assign-wrap {
+    padding: 20px 30px;
+    height: calc(100vh - 70px);
+    background: #f4f6f9;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+.a-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+.a-title-grp {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.a-icon {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6f42c1;
+    font-size: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.a-title-grp h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+}
+
+.a-title-grp .sub {
+    font-size: 12px;
+    color: #888;
+}
+
+.a-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.year-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
+    .year-box select {
+        border: none;
+        outline: none;
+        font-weight: 700;
+        color: #6f42c1;
+        cursor: pointer;
+        background: transparent;
+    }
+
+.a-btn {
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 13px;
+}
+
+    .a-btn.save {
+        background: #6f42c1;
+        color: white;
+        box-shadow: 0 3px 8px rgba(111, 66, 193, 0.2);
+    }
+
+    .a-btn.outline {
+        background: white;
+        border: 1px solid #ddd;
+        color: #555;
+    }
+
+.a-tabs {
+    display: flex;
+    gap: 5px;
+    border-bottom: 1px solid #ddd;
+    flex-shrink: 0;
+}
+
+.tab {
+    padding: 10px 25px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+    .tab.active {
+        color: #6f42c1;
+        border-bottom-color: #6f42c1;
+        background: white;
+        border-radius: 6px 6px 0 0;
+        border: 1px solid #ddd;
+        border-bottom: none;
+        position: relative;
+        top: 1px;
+    }
+
+.a-content {
+    flex: 1;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 0 0 8px 8px;
+}
+
+.a-toolbar {
+    padding: 10px 20px;
+    border-bottom: 1px dashed #eee;
+    background: #fcfcfc;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.a-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
+.a-input {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 13px;
+    min-width: 150px;
+}
+
+    .a-input.highlight {
+        border-color: #6f42c1;
+        color: #6f42c1;
+        font-weight: 700;
+        background: #fbf8ff;
+    }
+
+.a-table-scroll {
+    flex: 1;
+    overflow: auto;
+}
+
+.a-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+    .a-table th {
+        background: #f8f9fa;
+        padding: 10px 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+        position: sticky;
+        top: 0;
+        font-weight: 600;
+        color: #666;
+        z-index: 5;
+    }
+
+    .a-table td {
+        padding: 8px 15px;
+        border-bottom: 1px solid #f5f5f5;
+        vertical-align: middle;
+        color: #333;
+    }
+
+.a-tag {
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-family: monospace;
+}
+
+.a-badge {
+    background: #eee;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+}
+
+.seamless-wrap {
+    position: relative;
+    width: 100%;
+}
+
+    .seamless-wrap select {
+        width: 100%;
+        padding: 6px 25px 6px 10px;
+        border: 1px solid transparent;
+        background: transparent;
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+        appearance: none;
+        font-size: 13px;
+        color: #333;
+    }
+
+    .seamless-wrap .a-arrow {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 10px;
+        color: #ccc;
+        pointer-events: none;
+    }
+
+    .seamless-wrap:hover select {
+        border-color: #ddd;
+        background: white;
+    }
+
+    .seamless-wrap.empty select {
+        color: #999;
+        font-style: italic;
+    }
+
+.seamless-inp {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid transparent;
+    background: transparent;
+    outline: none;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+    .seamless-inp:hover {
+        border-color: #ddd;
+        background: white;
+    }
+
+.a-foot {
+    padding: 8px 20px;
+    border-top: 1px solid #eee;
+    background: #fcfcfc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+    flex-shrink: 0;
+}
+
+.a-paging {
+    display: flex;
+    gap: 5px;
+}
+
+    .a-paging button {
+        width: 28px;
+        height: 28px;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+    }
+
+        .a-paging button:hover:not(:disabled) {
+            background: #eee;
+        }
+
+.text-green {
+    color: #28a745;
+}
+
+.text-orange {
+    color: #fd7e14;
+}
+
+.ms-auto {
+    margin-left: auto;
+}
+
+@media (max-width: 992px) {
+    .assign-wrap {
+        padding: 15px 20px;
+        height: auto;
+        overflow: visible;
+    }
+
+    .a-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .a-title-grp {
+        width: 100%;
+    }
+
+    .a-actions {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .year-box {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .a-btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .a-tabs {
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    .tab {
+        flex: 1;
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+
+    .a-content {
+        overflow: visible;
+    }
+
+    .a-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .a-filter {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .a-input {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .a-table-scroll {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 400px;
+    }
+
+    .a-table {
+        min-width: 900px;
+    }
+
+    .a-foot {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .a-paging {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .assign-wrap {
+        padding: 10px;
+    }
+
+    .a-header {
+        margin-bottom: 10px;
+    }
+
+    .a-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .a-title-grp h4 {
+        font-size: 14px;
+    }
+
+    .a-title-grp .sub {
+        font-size: 11px;
+    }
+
+    .a-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .tab {
+        padding: 6px 12px;
+        font-size: 11px;
+        gap: 4px;
+    }
+
+    .a-toolbar {
+        padding: 8px 10px;
+    }
+
+    .a-filter {
+        font-size: 12px;
+    }
+
+    .a-input {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .a-table {
+        font-size: 12px;
+    }
+
+        .a-table th {
+            padding: 8px 10px;
+        }
+
+        .a-table td {
+            padding: 6px 10px;
+        }
+}

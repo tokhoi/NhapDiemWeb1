@@ -1,0 +1,456 @@
+﻿@page "/danh-sach-giao-vien"
+@rendermode InteractiveServer
+
+<div class="teacher-page">
+    <div class="t-header">
+        <div class="t-left">
+            <div class="t-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div class="t-title">
+                <h4>DANH SÁCH GIÁO VIÊN</h4>
+                <span>Quản lý hồ sơ nhân sự</span>
+            </div>
+        </div>
+        <button class="t-btn t-btn-primary"><i class="fa-solid fa-plus"></i> Thêm giáo viên</button>
+    </div>
+
+    <div class="t-toolbar">
+        <div class="t-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Tìm kiếm (Mã, Tên, SĐT)..." @bind="searchTerm" @bind:event="oninput" @onkeyup="ResetPaging" />
+        </div>
+        <div class="t-filters">
+            <select class="t-select" @bind="filterDepartment">
+                <option value="">-- Tất cả Tổ bộ môn --</option>
+                <option value="Tổ Toán - Tin">Tổ Toán - Tin</option>
+                <option value="Tổ Văn - Sử">Tổ Văn - Sử</option>
+                <option value="Tổ Ngoại ngữ">Tổ Ngoại ngữ</option>
+            </select>
+            <select class="t-select">
+                <option>-- Trạng thái --</option>
+                <option>Đang công tác</option>
+                <option>Đã nghỉ việc</option>
+            </select>
+        </div>
+        <button class="t-btn t-btn-outline ms-auto"><i class="fa-solid fa-file-excel"></i> Xuất Excel</button>
+    </div>
+
+    <div class="t-table-box">
+        <table class="t-table">
+            <thead>
+                <tr>
+                    <th width="30" class="text-center">#</th>
+                    <th width="60">Mã GV</th>
+                    <th>Họ và tên</th>
+                    <th>Tổ chuyên môn</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th>
+                    <th width="160" class="text-center">Trạng thái</th>
+                    <th width="100" class="text-end">Tác vụ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (PagedTeachers.Any())
+                {
+                    int idx = (currentPage - 1) * pageSize + 1;
+                    foreach (var t in PagedTeachers)
+                    {
+                        <tr>
+                            <td class="text-center text-muted">@(idx++)</td>
+                            <td><span class="code-pill">@t.Code</span></td>
+                            <td>
+                                <div class="t-info">
+                                    <div class="t-avatar @(idx % 2 == 0 ? "purple" : "")">@t.Name.Substring(0, 1)</div>
+                                    <div>
+                                        <div class="t-name">@t.Name</div>
+                                        <div class="t-sub">@t.Email</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@t.Department</td>
+                            <td>@t.Phone</td>
+                            <td>@t.Email</td>
+                            <td class="text-center"><span class="badge-active">Đang công tác</span></td>
+                            <td class="text-end">
+                                <button class="icon-btn edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="icon-btn delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="8" class="text-center py-4 text-muted">Không tìm thấy giáo viên phù hợp.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @* PAGINATION FOOTER *@
+    <div class="t-footer">
+        <span class="info">Hiển thị <strong>@PagedTeachers.Count</strong> trên <strong>@FilteredTeachers.Count</strong> giáo viên</span>
+        <div class="t-pagination">
+            <button @onclick="() => ChangePage(currentPage - 1)" disabled="@(currentPage == 1)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            @for (int i = 1; i <= TotalPages; i++)
+            {
+                var p = i;
+                <button class="@(currentPage == p ? "active" : "")" @onclick="() => ChangePage(p)">@p</button>
+            }
+            <button @onclick="() => ChangePage(currentPage + 1)" disabled="@(currentPage == TotalPages)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+    class Teacher { public string Code { get; set; } = ""; public string Name { get; set; } = ""; public string Department { get; set; } = ""; public string Phone { get; set; } = ""; public string Email { get; set; } = ""; }
+    List<Teacher> teachers = new();
+    string searchTerm = "";
+    string filterDepartment = "";
+
+    // Pagination Logic
+    int currentPage = 1;
+    int pageSize = 10;
+
+    List<Teacher> FilteredTeachers => teachers.Where(t =>
+        (string.IsNullOrEmpty(searchTerm) || t.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || t.Code.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) &&
+        (string.IsNullOrEmpty(filterDepartment) || t.Department == filterDepartment)
+    ).ToList();
+
+    List<Teacher> PagedTeachers => FilteredTeachers.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+    int TotalPages => (int)Math.Ceiling((double)FilteredTeachers.Count / pageSize);
+
+    protected override void OnInitialized()
+    {
+        // Mock 50 Teachers
+        for (int i = 1; i <= 50; i++)
+        {
+            string dept = i % 3 == 0 ? "Tổ Ngoại ngữ" : (i % 2 == 0 ? "Tổ Văn - Sử" : "Tổ Toán - Tin");
+            teachers.Add(new Teacher
+            {
+                Code = $"GV{i:000}",
+                Name = $"Giáo viên mẫu {i}",
+                Department = dept,
+                Phone = $"090{i:0000000}",
+                Email = $"gv{i}@school.edu.vn"
+            });
+        }
+    }
+
+    void ChangePage(int p) { if (p >= 1 && p <= TotalPages) currentPage = p; }
+    void ResetPaging() => currentPage = 1;
+}
+
+@* <style>
+    /* CSS SCOPED for Teacher Page */
+    :root {
+        --p-blue: #1b6ec2;
+        --bg: #f4f6f9;
+    }
+
+    .teacher-page {
+        padding: 20px 30px;
+        height: calc(100vh - 70px);
+        background: #f4f6f9;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+    .t-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-shrink: 0;
+    }
+
+    .t-left {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .t-icon {
+        width: 42px;
+        height: 42px;
+        background: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: #1b6ec2;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .t-title h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .t-title span {
+        font-size: 12px;
+        color: #666;
+    }
+
+    .t-btn {
+        padding: 9px 18px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .t-btn-primary {
+        background: #1b6ec2;
+        color: white;
+        box-shadow: 0 2px 5px rgba(27,110,194,0.3);
+    }
+
+        .t-btn-primary:hover {
+            background: #0d5197;
+            transform: translateY(-1px);
+        }
+
+    .t-btn-outline {
+        background: white;
+        border: 1px solid #ddd;
+        color: #198754;
+    }
+
+        .t-btn-outline:hover {
+            background: #f0fff4;
+        }
+
+    .ms-auto {
+        margin-left: auto;
+    }
+
+    .t-toolbar {
+        background: white;
+        padding: 15px;
+        border-radius: 8px 8px 0 0;
+        border: 1px solid #ddd;
+        border-bottom: none;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .t-search {
+        position: relative;
+        width: 300px;
+    }
+
+        .t-search i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .t-search input {
+            width: 100%;
+            padding: 9px 15px 9px 35px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+            font-size: 13px;
+        }
+
+            .t-search input:focus {
+                border-color: #1b6ec2;
+            }
+
+    .t-filters {
+        display: flex;
+        gap: 10px;
+    }
+
+    .t-select {
+        padding: 9px 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        outline: none;
+        font-size: 13px;
+        cursor: pointer;
+        background: white;
+    }
+
+        .t-select:focus {
+            border-color: #1b6ec2;
+        }
+
+    .t-table-box {
+        flex: 1;
+        overflow: auto;
+        background: white;
+        border: 1px solid #ddd;
+        border-top: none;
+    }
+
+    .t-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+        .t-table th {
+            background: #f8f9fa;
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            font-weight: 700;
+            color: #666;
+            z-index: 5;
+        }
+
+        .t-table td {
+            padding: 12px 20px;
+            border-bottom: 1px solid #f5f5f5;
+            vertical-align: middle;
+            color: #333;
+        }
+
+        .t-table tr:hover {
+            background: #fcfcfc;
+        }
+
+    .code-pill {
+        font-family: monospace;
+        color: #1b6ec2;
+        background: #eef7ff;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 12px;
+    }
+
+    .t-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .t-avatar {
+        width: 36px;
+        height: 36px;
+        background: #e6f4ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: #1b6ec2;
+        font-size: 14px;
+    }
+
+        .t-avatar.purple {
+            background: #f3e5f5;
+            color: #9c27b0;
+        }
+
+    .t-name {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .t-sub {
+        font-size: 11px;
+        color: #888;
+    }
+
+    .badge-active {
+        background: #e6fffa;
+        color: #00a86b;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .icon-btn {
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: transparent;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #888;
+        transition: 0.2s;
+    }
+
+        .icon-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .icon-btn.edit:hover {
+            color: #1b6ec2;
+        }
+
+        .icon-btn.delete:hover {
+            color: #dc3545;
+        }
+
+    .t-footer {
+        padding: 12px 20px;
+        background: white;
+        border: 1px solid #ddd;
+        border-top: 1px solid #eee;
+        border-radius: 0 0 8px 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        color: #666;
+        flex-shrink: 0;
+    }
+
+    .t-pagination {
+        display: flex;
+        gap: 5px;
+    }
+
+        .t-pagination button {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            transition: 0.2s;
+        }
+
+            .t-pagination button.active {
+                background: #1b6ec2;
+                color: white;
+                border-color: #1b6ec2;
+            }
+
+            .t-pagination button:hover:not(.active):not(:disabled) {
+                background: #f5f5f5;
+            }
+
+            .t-pagination button:disabled {
+                opacity: 0.5;
+                cursor: default;
+            }
+</style>     *@

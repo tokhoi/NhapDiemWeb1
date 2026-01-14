@@ -1,0 +1,483 @@
+﻿.student-page-container {
+    display: flex;
+    height: calc(100vh - 80px);
+    background: #f4f6f9;
+    gap: 20px;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+.sidebar-box {
+    width: 280px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.sidebar-header {
+    padding: 15px;
+    font-weight: 700;
+    color: #1b6ec2;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fcfdfe;
+    border-radius: 8px 8px 0 0;
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.grade-row {
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 2px;
+    transition: 0.2s;
+}
+
+    .grade-row:hover {
+        background: #f8f9fa;
+    }
+
+    .grade-row.expanded {
+        color: #1b6ec2;
+        background: #eef7ff;
+    }
+
+.grade-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge-count {
+    font-size: 11px;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #666;
+    font-weight: normal;
+}
+
+.arrow-icon {
+    font-size: 10px;
+    transition: 0.2s;
+}
+
+.grade-row.expanded .arrow-icon {
+    transform: rotate(180deg);
+}
+
+.class-list {
+    padding-left: 12px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+    .class-list::before {
+        content: '';
+        position: absolute;
+        left: 20px;
+        top: 0;
+        bottom: 15px;
+        width: 2px;
+        background: #eef2f6;
+    }
+
+.class-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    margin-left: 18px;
+    margin-bottom: 2px;
+    border-radius: 6px;
+    cursor: pointer;
+    background: white;
+    border: 1px solid transparent;
+    transition: 0.2s;
+}
+
+    .class-row:hover {
+        background: #f9f9f9;
+        transform: translateX(3px);
+    }
+
+    .class-row.active {
+        background: #f0f7ff;
+        border-color: #b3d7ff;
+        border-left: 4px solid #1b6ec2;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+.class-icon {
+    width: 30px;
+    height: 30px;
+    background: #f1f3f5;
+    color: #666;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.class-row.active .class-icon {
+    background: #1b6ec2;
+    color: white;
+}
+
+.class-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+}
+
+.class-sub {
+    font-size: 11px;
+    color: #888;
+}
+
+.main-content-box {
+    flex: 1;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.empty-state {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.icon-empty {
+    font-size: 60px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+.content-head {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    flex-shrink: 0;
+}
+
+.head-info h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+}
+
+.head-info span {
+    font-size: 13px;
+    color: #666;
+    display: block;
+    margin-top: 4px;
+}
+
+.head-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.search-wrap {
+    position: relative;
+}
+
+    .search-wrap i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+    }
+
+    .search-wrap input {
+        padding: 8px 10px 8px 30px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 13px;
+        width: 220px;
+        outline: none;
+    }
+
+        .search-wrap input:focus {
+            border-color: #1b6ec2;
+        }
+
+.btn-custom {
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-green {
+    background: #2e845c;
+    border-color: #ddd;
+    color: #fff;
+}
+
+    .btn-green:hover {
+        background: #31bd7c;
+    }
+
+.btn-blue {
+    background: #1b6ec2;
+    color: white;
+}
+
+    .btn-blue:hover {
+        background: #0d5197;
+    }
+
+.content-table {
+    flex: 1;
+    overflow: auto;
+}
+
+.std-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+    .std-table th {
+        background: #f8f9fa;
+        color: #555;
+        font-weight: 600;
+        text-align: left;
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+    }
+
+    .std-table td {
+        padding: 10px 15px;
+        border-bottom: 1px solid #f5f5f5;
+        vertical-align: middle;
+        color: #444;
+    }
+
+    .std-table tr:hover {
+        background: #fcfcfc;
+    }
+
+.code-tag {
+    font-family: monospace;
+    color: #1b6ec2;
+    background: #eef7ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.status-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    background: #e6fffa;
+    color: #00a86b;
+}
+
+.btn-icon {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #666;
+    font-size: 14px;
+}
+
+    .btn-icon:hover {
+        background: #eee;
+    }
+
+.text-blue {
+    color: #1b6ec2;
+}
+
+.text-red {
+    color: #dc3545;
+}
+
+.content-foot {
+    padding: 10px 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #666;
+    background: #fcfdfe;
+    flex-shrink: 0;
+}
+
+.pagination-wrap {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+    .pagination-wrap button {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        transition: 0.2s;
+    }
+
+        .pagination-wrap button.active {
+            background: #1b6ec2;
+            color: white;
+            border-color: #1b6ec2;
+        }
+
+        .pagination-wrap button:hover:not(.active):not(:disabled) {
+            background: #f0f0f0;
+        }
+
+        .pagination-wrap button:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+.dots {
+    padding: 0 5px;
+}
+
+@media (max-width: 992px) {
+    .student-page-container {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+
+    .sidebar-box {
+        width: 100%;
+        max-height: 300px;
+        border-right: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .sidebar-content {
+        max-height: 250px;
+    }
+
+    .main-content-box {
+        width: 100%;
+        height: auto;
+        max-height: 500px;
+    }
+
+    .content-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .head-info h4 {
+        font-size: 16px;
+    }
+
+    .head-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .search-wrap {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+        .search-wrap input {
+            width: 100%;
+        }
+
+    .btn-custom {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .content-table {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        border: 1px solid #eee;
+    }
+
+    .std-table {
+        min-width: 1000px;
+    }
+
+    .content-foot {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .pagination-wrap {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .student-page-container {
+        padding: 10px;
+    }
+
+    .sidebar-header {
+        font-size: 13px;
+    }
+
+    .grade-row {
+        font-size: 13px;
+    }
+
+    .btn-custom {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
