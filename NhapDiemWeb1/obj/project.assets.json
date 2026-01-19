@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1-main\\NhapDiemWeb1\\NhapDiemWeb1.csproj",
+      "projectUniqueName": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\NhapDiemWeb1.csproj",
       "projectName": "NhapDiemWeb1",
-      "projectPath": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1-main\\NhapDiemWeb1\\NhapDiemWeb1.csproj",
+      "projectPath": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\NhapDiemWeb1.csproj",
       "packagesPath": "C:\\Users\\Tô Khôi\\.nuget\\packages\\",
-      "outputPath": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1-main\\NhapDiemWeb1\\obj\\",
+      "outputPath": "D:\\STUDY\\VS CSharp\\Some Demo PAge\\NhapDiemWeb1\\NhapDiemWeb1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

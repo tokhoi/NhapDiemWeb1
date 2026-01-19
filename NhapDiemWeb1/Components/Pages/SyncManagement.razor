@@ -1,0 +1,992 @@
+﻿@page "/quan-ly-dong-bo"
+@rendermode InteractiveServer
+
+<div class="sync-container">
+    @* --- PAGE HEADER --- *@
+    <div class="sync-header">
+        <div class="sync-header-left">
+            <div class="sync-icon-box"><i class="fa-solid fa-rotate"></i></div>
+            <div>
+                <h4>QUẢN LÝ ĐỒNG BỘ DỮ LIỆU</h4>
+                <span class="sync-subtitle">Đồng bộ thông tin từ hệ thống quốc gia</span>
+            </div>
+        </div>
+        <div class="sync-header-right">
+            <div class="sync-filter-group">
+                <select class="sync-select">
+                    <option>2023 - 2024</option>
+                    <option>2024 - 2025</option>
+                    <option>2025 - 2026</option>
+                </select>
+                <select class="sync-select">
+                    <option>Trung học cơ sở</option>
+                    <option>Trung học phổ thông</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    @* --- SYNC STATUS CARDS --- *@
+    <div class="sync-cards-grid">
+        @foreach (var tab in TabList)
+        {
+            <div class="sync-card @(activeTab == tab.Id ? "active" : "")" @onclick="@(() => SwitchTab(tab.Id))">
+                <div class="sync-card-status @(tab.IsSynced ? "synced" : "pending")">
+                    @if (tab.IsSynced)
+                    {
+                        <span><i class="fa-solid fa-circle-check"></i> Đã đồng bộ</span>
+                    }
+                    else
+                    {
+                        <span><i class="fa-solid fa-circle-exclamation"></i> Chưa đồng bộ</span>    
+                    }
+                </div>
+                <div class="sync-card-title">@tab.Title</div>
+                <div class="sync-card-count">
+                    <span class="count-label">Đã xử lý:</span>
+                    <span class="count-value">@tab.Count</span>
+                </div>
+                @if (activeTab == tab.Id)
+                {
+                    <i class="sync-card-indicator fa-solid fa-chevron-down"></i>
+                }
+            </div>
+        }
+    </div>
+
+    @* --- TOOLBAR & FILTERS --- *@
+    <div class="sync-toolbar">
+        <div class="sync-filters-row">
+            @if (activeTab == 2)
+            {
+                <select class="sync-select-sm"><option>Chọn khối</option></select>
+                <select class="sync-select-sm"><option>Chọn lớp</option></select>
+                <select class="sync-select-sm"><option>Cả năm</option></select>
+                <select class="sync-select-sm"><option>Chọn giáo viên</option></select>
+            }
+            else if (activeTab == 3 || activeTab == 4)
+            {
+                <select class="sync-select-sm"><option>Chọn lớp</option></select>
+            }
+        </div>
+
+        <div class="sync-search-row">
+            <div class="sync-search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="@GetSearchPlaceholder()" class="sync-search-input" />
+            </div>
+            <button class="sync-btn-search">Tìm kiếm</button>
+        </div>
+    </div>
+
+    @* --- ACTION BUTTONS --- *@
+    <div class="sync-action-bar">
+        <button class="sync-btn-primary" @onclick="@(() => showLoginModal = true)">
+            <i class="fa-solid fa-rotate-right"></i> Đồng bộ ngay
+        </button>
+    </div>
+
+    @* --- SUB TABS (For Tab 2) --- *@
+    @if (activeTab == 2)
+    {
+        <div class="sync-sub-tabs">
+            <button class="sync-sub-tab @(subTab == 1 ? "active" : "")" @onclick="@(() => subTab = 1)">
+                <i class="fa-solid fa-user-tie"></i> Phân công GVCN
+            </button>
+            <button class="sync-sub-tab @(subTab == 2 ? "active" : "")" @onclick="@(() => subTab = 2)">
+                <i class="fa-solid fa-chalkboard-user"></i> Phân công giảng dạy
+            </button>
+            <button class="sync-sub-tab @(subTab == 3 ? "active" : "")" @onclick="@(() => subTab = 3)">
+                <i class="fa-solid fa-person-chalkboard"></i> Phân công quản lý
+            </button>
+        </div>
+    }
+
+    @* --- DATA TABLE --- *@
+    <div class="sync-table-container">
+        <table class="sync-table">
+            <thead>
+                <tr>
+                    <th width="40"><input type="checkbox" /></th>
+                    <th width="50">STT</th>
+                    <th>Mã định danh</th>
+
+                    @if (activeTab == 1)
+                    {
+                        <th>Họ và tên</th>
+                        <th>CCCD/CMND</th>
+                        <th>Tài khoản</th>
+                        <th>Nhóm quyền</th>
+                        <th>Trạng thái</th>
+                    }
+                    else if (activeTab == 2)
+                    {
+                        @if (subTab == 1)
+                        {
+                            <th>Giáo viên chủ nhiệm</th>
+                            <th>Lớp</th>
+                            <th>Học kỳ</th>
+                        }
+                        else if (subTab == 2)
+                        {
+                            <th>Giáo viên</th>
+                            <th>Môn dạy</th>
+                            <th>Học kỳ</th>
+                        }
+                        else
+                        {
+                            <th>Giáo viên</th>
+                            <th>Chức vụ</th>
+                            <th>Năm học</th>
+                        }
+                    }
+                    else if (activeTab == 3)
+                    {
+                        <th>Họ và tên học sinh</th>
+                        <th>Ngày sinh</th>
+                        <th>Lớp</th>
+                        <th>Trạng thái</th>
+                    }
+                    else
+                    {
+                        <th>Họ và tên học sinh</th>
+                        <th>Điểm TB</th>
+                        <th>Hạnh kiểm</th>
+                        <th>Trạng thái</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in PagedListIndices)
+                {
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>@i</td>
+                        <td><span class="sync-code-tag">@($"0012345678{i}")</span></td>
+
+                        @if (activeTab == 1)
+                        {
+                            <td>Nguyễn Văn A @i</td>
+                            <td>@($"0123456{i:D3}")</td>
+                            <td><span class="sync-username">admin@(i)</span></td>
+                            <td><span class="sync-badge">GVCN</span></td>
+                            <td><i class="fa-solid fa-circle-check sync-icon-success"></i></td>
+                        }
+                        else if (activeTab == 2)
+                        {
+                            <td>Trần Thị B @i</td>
+                            @if (subTab == 1)
+                            {
+                                <td>6A@(i)</td>
+                                <td>HK1</td>
+                            }
+                            else if (subTab == 2)
+                            {
+                                <td>Toán, Lý</td>
+                                <td>HK1</td>
+                            }
+                            else
+                            {
+                                <td>Hiệu trưởng</td>
+                                <td>2025 - 2026</td>
+                            }
+                        }
+                        else if (activeTab == 3)
+                        {
+                            <td>Lê Văn C @i</td>
+                            <td>15/03/2010</td>
+                            <td>10A@(i)</td>
+                            <td><i class="fa-solid fa-circle-check sync-icon-success"></i></td>
+                        }
+                        else
+                        {
+                            <td>Phạm Văn D @i</td>
+                            <td>8.5</td>
+                            <td>Tốt</td>
+                            <td><i class="fa-solid fa-circle-check sync-icon-success"></i></td>
+                        }
+                    </tr>
+                }
+
+                @if (TotalItems == 0)
+                {
+                    <tr>
+                        <td colspan="10" class="sync-empty-cell">
+                            <div class="sync-empty-state">
+                                <i class="fa-solid fa-inbox"></i>
+                                <p>Không tìm thấy dữ liệu</p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @* --- PAGINATION --- *@
+    @if (TotalPages > 1)
+    {
+        <div class="sync-footer">
+            <span class="sync-pagination-info">Trang @currentPage / @TotalPages</span>
+            <div class="sync-pagination">
+                <button class="sync-page-btn" disabled="@(currentPage == 1)" @onclick="@(() => ChangePage(currentPage - 1))">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+                @for (int i = 1; i <= TotalPages; i++)
+                {
+                    var p = i;
+                    if (p == 1 || p == TotalPages || (p >= currentPage - 1 && p <= currentPage + 1))
+                    {
+                        <button class="sync-page-btn @(currentPage == p ? "active" : "")" @onclick="@(() => ChangePage(p))">@p</button>
+                    }
+                    else if (p == currentPage - 2 || p == currentPage + 2)
+                    {
+                        <span class="sync-pagination-dots">...</span>
+                    }
+                }
+
+                <button class="sync-page-btn" disabled="@(currentPage == TotalPages)" @onclick="@(() => ChangePage(currentPage + 1))">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    /* ========================================================
+       1. ROOT VARIABLES & BASE STYLES
+       ======================================================== */
+    :root {
+        --sync-primary: #1b6ec2;
+        --sync-primary-dark: #0d5197;
+        --sync-success: #28a745;
+        --sync-warning: #fd7e14;
+        --sync-error: #dc3545;
+        --sync-hover: #f8f9fa;
+        --sync-active: #eef7ff;
+        --sync-border: #dee2e6;
+        --sync-text-dark: #333;
+        --sync-text-light: #666;
+        --sync-bg: #f4f6f9;
+    }
+
+    .sync-container {
+        padding: 20px 30px;
+        height: calc(100vh - 88px);
+        background: var(--sync-bg);
+        display: flex;
+        flex-direction: column;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+    /* ========================================================
+       2. HEADER STYLES
+       ======================================================== */
+    .sync-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-shrink: 0;
+    }
+
+    .sync-header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .sync-icon-box {
+        width: 42px;
+        height: 42px;
+        background: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--sync-primary);
+        font-size: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .sync-header h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--sync-text-dark);
+    }
+
+    .sync-subtitle {
+        font-size: 12px;
+        color: var(--sync-text-light);
+        display: block;
+        margin-top: 4px;
+    }
+
+    .sync-header-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .sync-filter-group {
+        display: flex;
+        gap: 8px;
+    }
+
+    .sync-select {
+        padding: 8px 12px;
+        border: 1px solid var(--sync-border);
+        border-radius: 6px;
+        outline: none;
+        font-size: 13px;
+        font-weight: 600;
+        background: white;
+        cursor: pointer;
+        color: var(--sync-text-dark);
+        transition: border-color 0.2s;
+    }
+
+        .sync-select:hover,
+        .sync-select:focus {
+            border-color: var(--sync-primary);
+        }
+
+    /* ========================================================
+       3. SYNC STATUS CARDS
+       ======================================================== */
+    .sync-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-shrink: 0;
+    }
+
+    .sync-card {
+        background: white;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        padding: 15px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+        .sync-card:hover {
+            border-color: var(--sync-primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .sync-card.active {
+            border-color: var(--sync-primary);
+            background: var(--sync-active);
+            box-shadow: 0 4px 15px rgba(27,110,194,0.15);
+        }
+
+    .sync-card-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+    }
+
+        .sync-card-status.synced {
+            background: #d4edda;
+            color: var(--sync-success);
+        }
+
+        .sync-card-status.pending {
+            background: #fff3cd;
+            color: var(--sync-warning);
+        }
+
+    .sync-card-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--sync-text-dark);
+        margin-bottom: 10px;
+    }
+
+    .sync-card-count {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+    }
+
+        .sync-card-count .count-label {
+            color: var(--sync-text-light);
+            font-weight: 600;
+        }
+
+        .sync-card-count .count-value {
+            font-weight: 700;
+            color: var(--sync-primary);
+            font-size: 16px;
+        }
+
+    .sync-card-indicator {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        font-size: 12px;
+        color: var(--sync-primary);
+        transition: transform 0.2s;
+    }
+
+    /* ========================================================
+       4. TOOLBAR & FILTERS
+       ======================================================== */
+    .sync-toolbar {
+        background: white;
+        border-radius: 8px 8px 0 0;
+        padding: 15px;
+        border: 1px solid var(--sync-border);
+        border-bottom: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .sync-filters-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .sync-select-sm {
+        padding: 6px 10px;
+        border: 1px solid var(--sync-border);
+        border-radius: 4px;
+        outline: none;
+        font-size: 12px;
+        background: white;
+        cursor: pointer;
+        color: var(--sync-text-dark);
+    }
+
+        .sync-select-sm:focus {
+            border-color: var(--sync-primary);
+        }
+
+    .sync-search-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .sync-search-box {
+        flex: 1;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+        .sync-search-box i {
+            position: absolute;
+            left: 12px;
+            color: #999;
+            font-size: 13px;
+            pointer-events: none;
+        }
+
+    .sync-search-input {
+        width: 100%;
+        padding: 8px 12px 8px 35px;
+        border: 1px solid var(--sync-border);
+        border-radius: 4px;
+        outline: none;
+        font-size: 13px;
+    }
+
+        .sync-search-input:focus {
+            border-color: var(--sync-primary);
+        }
+
+    .sync-btn-search {
+        padding: 8px 20px;
+        background: var(--sync-primary);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+        white-space: nowrap;
+    }
+
+        .sync-btn-search:hover {
+            background: var(--sync-primary-dark);
+        }
+
+    /* ========================================================
+       5. ACTION BUTTONS
+       ======================================================== */
+    .sync-action-bar {
+        display: flex;
+        gap: 10px;
+        padding: 10px 15px;
+        background: white;
+        border-left: 1px solid var(--sync-border);
+        border-right: 1px solid var(--sync-border);
+        flex-shrink: 0;
+    }
+
+    .sync-btn-primary {
+        padding: 10px 24px;
+        background: var(--sync-success);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.2s;
+    }
+
+        .sync-btn-primary:hover {
+            background: #1e7e34;
+        }
+
+    /* ========================================================
+       6. SUB TABS
+       ======================================================== */
+    .sync-sub-tabs {
+        display: flex;
+        gap: 5px;
+        padding: 0 15px;
+        background: white;
+        border: 1px solid var(--sync-border);
+        border-left: none;
+        border-right: none;
+        flex-shrink: 0;
+    }
+
+    .sync-sub-tab {
+        padding: 10px 20px;
+        background: transparent;
+        border: none;
+        border-bottom: 3px solid transparent;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--sync-text-light);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
+    }
+
+        .sync-sub-tab:hover {
+            color: var(--sync-primary);
+        }
+
+        .sync-sub-tab.active {
+            color: var(--sync-primary);
+            border-bottom-color: var(--sync-primary);
+        }
+
+    /* ========================================================
+       7. TABLE STYLES
+       ======================================================== */
+    .sync-table-container {
+        flex: 1;
+        background: white;
+        border: 1px solid var(--sync-border);
+        border-top: none;
+        overflow: auto;
+        min-height: 0;
+    }
+
+    .sync-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+        .sync-table th {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--sync-border);
+            position: sticky;
+            top: 0;
+            font-weight: 700;
+            color: var(--sync-text-light);
+            z-index: 5;
+        }
+
+        .sync-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #f5f5f5;
+            vertical-align: middle;
+            color: var(--sync-text-dark);
+        }
+
+        .sync-table tr:hover {
+            background: #fcfcfc;
+        }
+
+    .sync-code-tag {
+        font-family: monospace;
+        color: var(--sync-primary);
+        background: var(--sync-active);
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 12px;
+    }
+
+    .sync-username {
+        font-weight: 600;
+        color: var(--sync-primary);
+    }
+
+    .sync-badge {
+        display: inline-block;
+        background: #e6f4ff;
+        color: var(--sync-primary);
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .sync-icon-success {
+        color: var(--sync-success);
+        font-size: 14px;
+    }
+
+    .sync-empty-cell {
+        height: 300px;
+        text-align: center;
+        padding: 40px 15px !important;
+    }
+
+    .sync-empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #ccc;
+    }
+
+        .sync-empty-state i {
+            font-size: 60px;
+            margin-bottom: 12px;
+        }
+
+        .sync-empty-state p {
+            margin: 0;
+            font-size: 14px;
+            color: #999;
+        }
+
+    /* ========================================================
+       8. PAGINATION
+       ======================================================== */
+    .sync-footer {
+        padding: 10px 15px;
+        background: white;
+        border: 1px solid var(--sync-border);
+        border-top: none;
+        border-radius: 0 0 8px 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: var(--sync-text-light);
+        flex-shrink: 0;
+    }
+
+    .sync-pagination {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .sync-page-btn {
+        width: 32px;
+        height: 32px;
+        border: 1px solid var(--sync-border);
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--sync-text-light);
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+        .sync-page-btn:hover:not(.active):not(:disabled) {
+            background: var(--sync-hover);
+            border-color: var(--sync-primary);
+        }
+
+        .sync-page-btn.active {
+            background: var(--sync-primary);
+            color: white;
+            border-color: var(--sync-primary);
+        }
+
+        .sync-page-btn:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+    .sync-pagination-dots {
+        padding: 0 5px;
+        color: #999;
+    }
+
+    /* ========================================================
+       9. RESPONSIVE STYLES
+       ======================================================== */
+    @@media (max-width: 1200px) {
+        .sync-cards-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (max-width: 992px) {
+        .sync-container {
+            padding: 15px 20px;
+            height: auto;
+            overflow: visible;
+        }
+
+        .sync-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .sync-header-right {
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .sync-filter-group {
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .sync-cards-grid {
+            grid-template-columns: 1fr;
+            margin-bottom: 15px;
+        }
+
+        .sync-toolbar {
+            flex-direction: column;
+        }
+
+        .sync-search-row {
+            width: 100%;
+        }
+
+        .sync-table-container {
+            max-height: 500px;
+            border-radius: 8px;
+        }
+
+        .sync-table {
+            min-width: 1000px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .sync-container {
+            padding: 12px 15px;
+        }
+
+        .sync-header h4 {
+            font-size: 16px;
+        }
+
+        .sync-subtitle {
+            font-size: 11px;
+        }
+
+        .sync-filters-row {
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .sync-select-sm {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .sync-sub-tabs {
+            overflow-x: auto;
+        }
+
+        .sync-sub-tab {
+            padding: 8px 15px;
+            font-size: 12px;
+        }
+
+        .sync-table {
+            font-size: 12px;
+        }
+
+        .sync-table th,
+        .sync-table td {
+            padding: 8px 10px;
+        }
+
+        .sync-footer {
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .sync-pagination {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .sync-header-left {
+            width: 100%;
+        }
+
+        .sync-icon-box {
+            width: 36px;
+            height: 36px;
+            font-size: 18px;
+        }
+
+        .sync-header h4 {
+            font-size: 14px;
+        }
+
+        .sync-select {
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        .sync-btn-search {
+            padding: 6px 15px;
+            font-size: 12px;
+        }
+
+        .sync-btn-primary {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        .sync-table {
+            font-size: 11px;
+        }
+
+        .sync-table th,
+        .sync-table td {
+            padding: 6px 8px;
+        }
+
+        .sync-page-btn {
+            width: 28px;
+            height: 28px;
+        }
+    }
+</style>
+
+@code {
+    // ========================================================
+    // STATE VARIABLES
+    // ========================================================
+    private int activeTab = 1;
+    private int subTab = 1;
+    private bool showLoginModal = false; // <-- Add this line
+
+    // ========================================================
+    // PAGINATION VARIABLES
+    // ========================================================
+    private int currentPage = 1;
+    private int pageSize = 10;
+
+    // ========================================================
+    // DATA MODELS
+    // ========================================================
+    public class SyncTabInfo
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = "";
+        public string Count { get; set; } = "";
+        public bool IsSynced { get; set; }
+    }
+
+    private List<SyncTabInfo> TabList = new List<SyncTabInfo>
+    {
+        new SyncTabInfo { Id = 1, Title = "1. Quản lý người dùng", Count = "379/379", IsSynced = true },
+        new SyncTabInfo { Id = 2, Title = "2. Phân công nhân sự", Count = "689/689", IsSynced = true },
+        new SyncTabInfo { Id = 3, Title = "3. Thông tin học sinh", Count = "0/0", IsSynced = false },
+        new SyncTabInfo { Id = 4, Title = "4. Kết quả học tập", Count = "0/0", IsSynced = false }
+    };
+
+    // ========================================================
+    // LOGIC HELPERS
+    // ========================================================
+    private int TotalItems => activeTab switch
+    {
+        1 => 379,
+        2 => 689,
+        _ => 0
+    };
+
+    private int TotalPages => (int)Math.Ceiling((double)TotalItems / pageSize);
+
+    private List<int> PagedListIndices
+    {
+        get
+        {
+            if (TotalItems == 0) return new List<int>();
+            var start = (currentPage - 1) * pageSize + 1;
+            var count = Math.Min(pageSize, TotalItems - start + 1);
+            return Enumerable.Range(start, count).ToList();
+        }
+    }
+
+    // ========================================================
+    // EVENT HANDLERS
+    // ========================================================
+    private void ChangePage(int newPage)
+    {
+        if (newPage >= 1 && newPage <= TotalPages)
+        {
+            currentPage = newPage;
+        }
+    }
+
+    private void SwitchTab(int tabIndex)
+    {
+        activeTab = tabIndex;
+        currentPage = 1;
+        subTab = 1;
+    }
+
+    private string GetSearchPlaceholder() => activeTab switch
+    {
+        3 => "Tìm kiếm theo tên học sinh...",
+        4 => "Tìm kiếm theo tên học sinh...",
+        _ => "Chọn giáo viên / Tìm kiếm..."
+    };
+}

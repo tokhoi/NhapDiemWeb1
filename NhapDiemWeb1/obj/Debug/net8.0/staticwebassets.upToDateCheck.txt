@@ -2,5 +2,6 @@ wwwroot\app.css
 wwwroot\bootstrap\bootstrap.min.css
 wwwroot\bootstrap\bootstrap.min.css.map
 wwwroot\favicon.png
+wwwroot\images\Titkul - logo- slogan_page-0001.jpg
 wwwroot\js\app-utils.js
 wwwroot\js\chart-helper.js
